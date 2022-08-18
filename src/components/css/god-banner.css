@@ -1,0 +1,16 @@
+.god-banner-container{
+    width: 100%;
+    height: 100%;
+    /* border-radius: 5px; */
+    
+  }
+ .god-banner-link{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+ .god-banner-link img{
+    border-radius: 5px;
+  }

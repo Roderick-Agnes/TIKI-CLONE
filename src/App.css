@@ -1,0 +1,214 @@
+.app {
+  width: 100%;
+  max-width: 100vw;
+}
+main {
+  display: grid;
+  gap: 15px;
+  padding: 15px 0;
+}
+.banners ,.promotions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  position: relative;
+  padding: 0px 15px;
+}
+
+.banners-container{
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 1240px;
+  height: 274px;
+}
+.carousel-banners {
+  width: 824px;
+  height: 274px;
+  max-width: 824px;
+  max-height: 274px;
+}
+.banner-product{
+  width: 408px;
+  height: 274px;
+  max-width: 408px;
+  max-height: 274px;
+  border-radius: 5px;
+}
+
+.promotions-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 1240px;
+  height: 274px;
+}
+
+.hot-deals{
+  width: 736px;
+  height: 274px;
+  background-color: #fff;
+  border-radius: 5px;
+}
+.hot-deals-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 16px 16px 8px;
+}
+.hot-deal-body{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.header-left{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+}
+.time-expired{
+  color: gray;
+  font-size: 15px;
+  font-weight: bold;
+  
+}
+.header-left .time-expired span{
+  background-color: #FF424E;
+  border-radius: 4px;
+  padding: 4px 4px;
+  margin: 0 3px;
+  color: #fff;
+}
+.header-right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+}
+.header-right a{
+  font-size: 16px;
+  color: #0B74E5;
+  font-weight: 100;
+}
+
+/* thumbnail banner */
+.thumbnail-banners {
+  outline: none;
+  width: 488px;
+  height: 100%;
+  max-width: 488px;
+  max-height: 274px;
+  border-radius: 5px;
+}
+
+/* Home brand section */
+.home__brands {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 0px 15px;
+}
+.home__brands .home__brands__container {
+  display: grid;
+  justify-content: space-between;
+  align-items: center;
+  width: 1240px;
+  height: 160px;
+  grid-template-columns: 204px 800px 204px;
+  grid-template-rows: 160px;
+}
+
+.home__brands .home__brands__container .side__brands {
+  width: 204px;
+  height: 160px;
+  border-radius: 5px;
+}
+.home__brands .home__brands__container .side__brands:first-child {
+  grid-column: 1 / 2;
+}
+.home__brands .home__brands__container .side__brands:nth-child(2) {
+  grid-column: 3 / 4;
+}
+.home__brands .home__brands__container .center__brand {
+  width: 800px;
+  height: 160px;
+  border-radius: 5px;
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+}
+.home__brands .home__brands__container .side__brands div a img, 
+.home__brands .home__brands__container .center__brand div a img
+{
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+}
+
+/* Home quick links tab section */
+.home__quicklinks__tab {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 0px 15px;
+}
+.home__quicklinks__tab__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 1240px;
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 20px 10px;
+}
+.home__quicklinks__tab__container a {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100%;
+  flex-basis: 103px;
+  flex-shrink: 0;
+  padding: 0 5px;
+}
+.home__quicklinks__tab__container a img{
+  width: 48px;
+  height: 48px;
+  border-radius: 5px;
+}
+.home__quicklinks__tab__container a span {
+  font-size: 13px;
+  color: rgb(36,36,36);
+  font-weight: 100;
+  margin-top: 16px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/*primary banners v4*/
+.primary__banners {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 0px 15px;
+}
+.primary__banners .primary__banners__container {
+  display: grid;
+  justify-content: space-between;
+  align-items: center;
+  width: 1240px;
+  height: 150px;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 150px;
+  gap: 15px;
+}
+.primary__banners .primary__banners__container .primary__banner__item img{
+  border-radius: 20px;
+}
