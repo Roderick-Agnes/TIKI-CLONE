@@ -21,6 +21,8 @@ function App() {
   const [centerBand, setCenterBand] = useState([]);
   const [quickLinks, setQuickLinks] = useState([]);
   const [primaryBannersV4, setPrimaryBannersV4] = useState([]);
+  const [genuineBrands, setGenuineBrands] = useState([]);
+  const [brandCards, setBrandCards] = useState([]);
   //config time for countdown timer
   const THREE_DAYS_IN_MS = 3 * 24 * 60 * 60 * 1000;
   const NOW_IN_MS = new Date().getTime();
@@ -42,6 +44,8 @@ function App() {
     "https://tiki.vn/api/shopping/v2/widgets/quick_link?platform=desktop&trackity_id=0133075b-db6b-f905-4dbf-c62d0902c027";
   const API_PRIMARY_BANNERS_URL =
     "https://tiki.vn/api/shopping/v2/banners?group=home_v4_primary_banner&trackity_id=0133075b-db6b-f905-4dbf-c62d0902c027";
+  const API_GENUINE_BRANDS_URL =
+    "https://api.tiki.vn/shopping/v2/widgets/brand-static?trackity_id=0133075b-db6b-f905-4dbf-c62d0902c027";
   useEffect(() => {
     try {
       //set banners data to state
@@ -81,6 +85,11 @@ function App() {
       //set primary banner v4 data to state
       axios.get(API_PRIMARY_BANNERS_URL).then((res) => {
         setPrimaryBannersV4(res.data.data);
+      });
+      //set genuine brands data to state
+      axios.get(API_GENUINE_BRANDS_URL).then((res) => {
+        setGenuineBrands(res.data.data.banners);
+        setBrandCards(res.data.data.brand_cards);
       });
     } catch (err) {
       console.log(err);
@@ -217,6 +226,53 @@ function App() {
                 />
               );
             })}
+          </div>
+        </section>
+        <section className="promotions__products">
+          <div className="__container__">
+            <div className="header__promotions">
+              <div className="header__promotions__left">
+                <img
+                  src="https://salt.tikicdn.com/ts/upload/33/0f/67/de89fab36546a63a8f3a8b7d038bff81.png"
+                  alt="icon_promotion"
+                />
+                <span>Thương hiệu chính hãng</span>
+              </div>
+              <div className="header__promotions__right">
+                <a href="#">Xem thêm</a>
+              </div>
+            </div>
+            <div className="main__promotions">
+              <Carousel
+                data={genuineBrands}
+                newSettings={{
+                  dots: false,
+                  slidesToShow: 2,
+                  slidesToScroll: 2,
+                  speed: 1500,
+                }}
+              />
+            </div>
+            <div className="brand__cards__promotions">
+              <Carousel
+                data={brandCards}
+                newSettings={{
+                  dots: false,
+                  slidesToShow: 6,
+                  slidesToScroll: 6,
+                  autoplay: false,
+                  showTittle: true,
+                  arrows: true,
+                }}
+              />
+            </div>
+          </div>
+        </section>
+        <section className="featured__category">
+          <div className="__container__">
+            <div className="header__features__category">
+              <span>Danh mục nổi bật</span>
+            </div>
           </div>
         </section>
       </main>

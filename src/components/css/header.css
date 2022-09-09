@@ -51,6 +51,7 @@ header{
 }
 
 .search-button {
+    cursor: pointer;
     border: none;
     outline: none;
     background-color: #0D5CB6;

@@ -1,26 +1,9 @@
 import Slider from "react-slick";
-import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import "./css/navbar.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import "./css/navbar.css";
 import { useEffect, useState } from "react";
-
-const PrevArrow = (props) => {
-  const { onClick } = props;
-  return (
-    <span className="arrow-icon arrow-prev">
-      <IoIosArrowBack className="arrow-prev" onClick={onClick} size={24} />
-    </span>
-  );
-};
-const NextArrow = (props) => {
-  const { onClick } = props;
-  return (
-    <span className="arrow-icon">
-      <IoIosArrowForward className="arrow-next" onClick={onClick} size={24} />
-    </span>
-  );
-};
+import { PrevArrow, NextArrow } from "./Arrows";
 
 const Navbar = (props) => {
   const { data, newSettings } = props;
@@ -29,8 +12,8 @@ const Navbar = (props) => {
     dotsClass: `slick-dots`,
     infinite: true,
     speed: 1000,
-    slidesToShow: 1,
-    slidesToScroll: 1,
+    slidesToShow: 10,
+    slidesToScroll: 10,
     arrows: true,
     autoplay: false,
     prevArrow: <PrevArrow />,
@@ -72,9 +55,6 @@ const Navbar = (props) => {
     <>
       <div className="nav">
         <div className="nav-container">
-          {/* <span className="arrow-icon arrow-prev">
-            <IoIosArrowBack className="arrow-prev" size={24} />
-          </span> */}
           <div className="nav-links">
             <Slider {...settings}>
               {data.map((slide, index) => {
@@ -88,9 +68,6 @@ const Navbar = (props) => {
               })}
             </Slider>
           </div>
-          {/* <span className="arrow-icon">
-            <IoIosArrowForward className="arrow-next" size={24} />
-          </span> */}
         </div>
       </div>
     </>
