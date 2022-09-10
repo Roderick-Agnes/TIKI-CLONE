@@ -1,0 +1,38 @@
+.collection__item { 
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    -webkit-box-align: center;
+    align-items: center;
+    flex-shrink: 0;
+    cursor: pointer;
+    min-height: 78px;
+    border-radius: 4px;
+    padding: 4px 8px;
+    outline: none;
+    border: none;
+}
+/* .collection__item:nth-child(1){
+    border: 1px solid rgb(13, 92, 182);
+}
+.collection__item:nth-child(1) > span {
+    color: rgb(13, 92, 182);
+} */
+.collection__item:focus{
+    border: 1px solid rgb(13, 92, 182);
+}
+.collection__item:focus > span {
+    color: rgb(13, 92, 182);
+}
+
+.collection__item img {
+    max-width: 48px;
+    max-height: 48px;
+    width: 48px;
+    height: 48px;
+}
+.collection__item span {
+    font-size: 13px;
+    padding: 4px;
+    color: rgb(120, 120, 120);
+}

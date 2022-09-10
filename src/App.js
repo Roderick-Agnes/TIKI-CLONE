@@ -2,7 +2,7 @@ import Header from "./components/Header";
 import Navbar from "./components/Navbar";
 import Carousel from "./components/Carousel";
 import Banner from "./components/Banner";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import "./App.css";
 import CountdownTimer from "./components/CountdownTimer";
@@ -10,6 +10,8 @@ import CountdownTimer from "./components/CountdownTimer";
 //get data from fake api
 import QuickLinksTab from "./components/QuickLinksTab";
 import ProductsCarousel from "./components/ProductsCarousel";
+import CollectionItem from "./components/CollectionItem";
+import ProductItem from "./components/ProductItem";
 
 function App() {
   const [banners, setBanners] = useState([]);
@@ -23,6 +25,14 @@ function App() {
   const [primaryBannersV4, setPrimaryBannersV4] = useState([]);
   const [genuineBrands, setGenuineBrands] = useState([]);
   const [brandCards, setBrandCards] = useState([]);
+  const [featuredCategories, setFeaturedCategories] = useState([]);
+  const [homeBannerMiniV2, setHomeBannerMiniV2] = useState([]);
+  const [collections, setCollections] = useState([]);
+  const [collectionKey, setCollectionKey] = useState(0);
+  const [dataCollection, setDataCollection] = useState(
+    collections[collectionKey]?.items // async collection
+  );
+
   //config time for countdown timer
   const THREE_DAYS_IN_MS = 3 * 24 * 60 * 60 * 1000;
   const NOW_IN_MS = new Date().getTime();
@@ -46,6 +56,12 @@ function App() {
     "https://tiki.vn/api/shopping/v2/banners?group=home_v4_primary_banner&trackity_id=0133075b-db6b-f905-4dbf-c62d0902c027";
   const API_GENUINE_BRANDS_URL =
     "https://api.tiki.vn/shopping/v2/widgets/brand-static?trackity_id=0133075b-db6b-f905-4dbf-c62d0902c027";
+  const API_FEATURED_CATEGORY_URL =
+    "https://tiki.vn/api/personalish/v1/blocks/categories?block_code=featured_categories&trackity_id=0133075b-db6b-f905-4dbf-c62d0902c027";
+  const API_HOME_BANNER_MINI_V2 =
+    "https://tiki.vn/api/shopping/v2/banners?group=home_banner_main_mini_v2&trackity_id=0133075b-db6b-f905-4dbf-c62d0902c027";
+  const API_COLLECTIONS_URL =
+    "https://tiki.vn/api/personalish/v1/blocks/collections?block_code=infinite_scroll&page_size=36&trackity_id=0133075b-db6b-f905-4dbf-c62d0902c027";
   useEffect(() => {
     try {
       //set banners data to state
@@ -91,10 +107,25 @@ function App() {
         setGenuineBrands(res.data.data.banners);
         setBrandCards(res.data.data.brand_cards);
       });
+      //set featured categories data to state
+      axios.get(API_FEATURED_CATEGORY_URL).then((res) => {
+        setFeaturedCategories(res.data.items);
+      });
+      //set home banner mini v2 data to state
+      axios.get(API_HOME_BANNER_MINI_V2).then((res) => {
+        setHomeBannerMiniV2(res.data.data);
+      });
+      //set collections data to state
+      // setDataCollections();
+      axios.get(API_COLLECTIONS_URL).then((res) => {
+        setCollections(res.data.tabs);
+        // setDataCollection(collections[0]?.items);
+      });
     } catch (err) {
       console.log(err);
     }
   }, []);
+
   return (
     <div className="app">
       <Header />
@@ -273,6 +304,62 @@ function App() {
             <div className="header__features__category">
               <span>Danh mục nổi bật</span>
             </div>
+            <div className="home__quicklinks__tab__container">
+              {featuredCategories.map((item, index) => {
+                return (
+                  <QuickLinksTab
+                    key={item.id ? item.id : index}
+                    image_url={item.thumbnail_url}
+                    title={item.name}
+                    url={item.url}
+                  />
+                );
+              })}
+            </div>
+          </div>
+        </section>
+        <section className="primary__banners">
+          <div className="primary__banners__container">
+            {homeBannerMiniV2.map((item, index) => {
+              return (
+                <Banner
+                  key={item.id ? item.id : index}
+                  url={item.url}
+                  title={item.title}
+                  image_url={item.image_url}
+                  classNames={"primary__banner__item"}
+                />
+              );
+            })}
+          </div>
+        </section>
+        <section className="suggestions">
+          <div className="header__suggestions">
+            <div className="suggestions__title __container__">
+              <span>Gợi Ý Hôm Nay</span>
+            </div>
+            <div className="collections ">
+              <div className="collections__list">
+                {collections.map((item, index) => {
+                  return (
+                    <CollectionItem
+                      key={item.id ? item.id : index}
+                      image_url={item.icon}
+                      title={item.title}
+                      url={item.more_link}
+                      onClick={() => {
+                        setCollectionKey(index);
+                        setDataCollection(collections[collectionKey]?.items);
+                        console.log("index:", index);
+                      }}
+                    />
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+          <div className="suggestion__contents __container__">
+            {console.log("data:", dataCollection?.length)}
           </div>
         </section>
       </main>

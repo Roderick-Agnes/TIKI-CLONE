@@ -1,4 +1,3 @@
-
 const QuickLinksTab = (props) => {
   const { image_url, title, url } = props;
   return (
