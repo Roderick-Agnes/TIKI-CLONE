@@ -1,0 +1,31 @@
+
+.banners ,.promotions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    padding: 0px 15px;
+  }
+  
+  .banners-container{
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 1240px;
+    height: 274px;
+  }
+  .carousel-banners {
+    width: 824px;
+    height: 274px;
+    max-width: 824px;
+    max-height: 274px;
+  }
+  .banner-product{
+    width: 408px;
+    height: 274px;
+    max-width: 408px;
+    max-height: 274px;
+    border-radius: 5px;
+  }

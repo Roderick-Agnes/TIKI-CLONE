@@ -1,0 +1,20 @@
+/* featured__category */
+.featured__category {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  .header__features__category {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .header__features__category span {
+    width: 100%;
+    text-align: left;
+    font-size: 20px;
+    line-height: 28px;
+    color: #242424;
+  }

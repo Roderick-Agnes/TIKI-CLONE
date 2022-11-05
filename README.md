@@ -70,6 +70,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
 ### Create a new repository on the command line
+
 echo "# TIKI-CLONE" >> README.md
 git init
 git add README.md
@@ -79,6 +80,11 @@ git remote add origin https://github.com/Roderick-Agnes/TIKI-CLONE.git
 git push -u origin main
 
 ### Push an existing repository from the command line
+
 git remote add origin https://github.com/Roderick-Agnes/TIKI-CLONE.git
 git branch -M main
 git push -u origin main
+
+### User dont want to login at the next access time
+
+-> redux persist

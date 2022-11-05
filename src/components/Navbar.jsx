@@ -36,8 +36,7 @@ const Navbar = (props) => {
           ? newSettings.autoplay
           : false,
       slidesToShow:
-        newSettings.slidesToShow ||
-        typeof newSettings.slidesToShow !== "undefined"
+        newSettings.slidesToShow || typeof newSettings.slidesToShow !== "undefined"
           ? newSettings.slidesToShow
           : 1,
       dotsClass:

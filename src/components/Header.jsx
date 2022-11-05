@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from "react";
 import { BiSearchAlt, BiUser } from "react-icons/bi";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { FiShoppingCart } from "react-icons/fi";
@@ -6,9 +6,11 @@ import { FaStore } from "react-icons/fa";
 import { Badge } from "antd";
 
 import "./css/header.css";
+import AuthPopup from "../features/AuthPopup";
+import { useState } from "react";
 
-const Header = () => {
-
+const Header = (props) => {
+  const { togglePopup } = props;
   return (
     <>
       <header>
@@ -74,13 +76,17 @@ const Header = () => {
             <div className="end-header-container">
               <div className="auth-container">
                 <BiUser color={"#fff"} size={32} />
-                <a href="#">
+                <span
+                  onClick={() => {
+                    togglePopup();
+                  }}
+                >
                   <span>Đăng nhập / Đăng ký</span>
                   <p>
                     Tài khoản
                     <IoMdArrowDropdown size={16} />
                   </p>
-                </a>
+                </span>
               </div>
               <div className="cart-container">
                 <FiShoppingCart color={"#fff"} size={32} />
@@ -97,7 +103,6 @@ const Header = () => {
           </div>
         </div>
       </header>
-      
     </>
   );
 };

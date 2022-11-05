@@ -3,11 +3,10 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Roboto,Helvetica,Arial,sans-serif;
+    font-family: 'Roboto', 'Helvetica', 'sans-serif';
 }
 body{
     background-color: #F5F5FA;
-
 }
 li,a, button {
     font-family: 'Poppins', sans-serif;
@@ -15,3 +14,5 @@ li,a, button {
     color: #edf0f1;
     text-decoration: none;
 }
+
+/* box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px; */

@@ -1,0 +1,155 @@
+{/*
+
+
+
+  const API_HOME_BRAND_URL =
+    "https://tiki.vn/api/shopping/v2/widgets/banner/home-brand?platform=desktop&trackity_id=0133075b-db6b-f905-4dbf-c62d0902c027";
+  const API_QUICKLINKS_URL =
+    "https://tiki.vn/api/shopping/v2/widgets/quick_link?platform=desktop&trackity_id=0133075b-db6b-f905-4dbf-c62d0902c027";
+
+  const API_GENUINE_BRANDS_URL =
+    "https://api.tiki.vn/shopping/v2/widgets/brand-static?trackity_id=0133075b-db6b-f905-4dbf-c62d0902c027";
+  const API_HOME_BANNER_MINI_V2 =
+    "https://tiki.vn/api/shopping/v2/banners?group=home_banner_main_mini_v2&trackity_id=0133075b-db6b-f905-4dbf-c62d0902c027";
+    
+
+
+const [sideBrands, setSideBrands] = useState([]);
+  const [centerBand, setCenterBand] = useState([]);
+  const [quickLinks, setQuickLinks] = useState([]);
+  const [genuineBrands, setGenuineBrands] = useState([]);
+  const [brandCards, setBrandCards] = useState([]);
+  const [homeBannerMiniV2, setHomeBannerMiniV2] = useState([]);
+
+
+
+useEffect(() => {
+    try {
+      //set category data to state
+      axios.get(API_CATEGORY_URL).then((res) => {
+        setCategory(res.data.data);
+      });
+
+      //set home_brands data to state
+      axios.get(API_HOME_BRAND_URL).then((res) => {
+        setSideBrands(res.data.data.side_brand);
+        setCenterBand(res.data.data.center_brand);
+      });
+      //set quick links tab data to state
+      axios.get(API_QUICKLINKS_URL).then((res) => {
+        setQuickLinks(res.data.data);
+      });
+
+      //set genuine brands data to state
+      axios.get(API_GENUINE_BRANDS_URL).then((res) => {
+        setGenuineBrands(res.data.data.banners);
+        setBrandCards(res.data.data.brand_cards);
+      });
+      //set home banner mini v2 data to state
+      axios.get(API_HOME_BANNER_MINI_V2).then((res) => {
+        setHomeBannerMiniV2(res.data.data);
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
+
+
+
+
+
+<section className="primary__banners">
+      <div className="primary__banners__container">
+        {homeBannerMiniV2.map((item, index) => {
+          return (
+            <Banner
+              key={item.id ? item.id : index}
+              url={item.url}
+              title={item.title}
+              image_url={item.image_url}
+              classNames={"primary__banner__item"}
+            />
+          );
+        })}
+      </div>
+    </section> 
+<section className="home__brands">
+          <div className="home__brands__container">
+            {sideBrands.map((item, index) => {
+              return (
+                <Banner
+                  key={item.id ? item.id : index}
+                  url={item.url}
+                  title={item.title}
+                  image_url={item.image_url}
+                  classNames={"side__brands"}
+                />
+              );
+            })}
+            {centerBand.map((item, index) => {
+              return (
+                <Banner
+                  key={item.id}
+                  url={item.url}
+                  title={item.title}
+                  image_url={item.image_url}
+                  classNames={"center__brand"}
+                />
+              );
+            })}
+          </div>
+        </section> 
+        <section className="home__quicklinks__tab">
+          <div className="home__quicklinks__tab__container">
+            {quickLinks.map((item, index) => {
+              return (
+                <QuickLinksTab
+                  key={item.id ? item.id : index}
+                  image_url={item.image_url}
+                  title={item.title}
+                  url={item.url}
+                />
+              );
+            })}
+          </div>
+        </section>
+        <section className="promotions__products">
+          <div className="__container__">
+            <div className="header__promotions">
+              <div className="header__promotions__left">
+                <img
+                  src="https://salt.tikicdn.com/ts/upload/33/0f/67/de89fab36546a63a8f3a8b7d038bff81.png"
+                  alt="icon_promotion"
+                />
+                <span>Thương hiệu chính hãng</span>
+              </div>
+              <div className="header__promotions__right">
+                <a href="#">Xem thêm</a>
+              </div>
+            </div>
+            <div className="main__promotions">
+              <Carousel
+                data={genuineBrands}
+                newSettings={{
+                  dots: false,
+                  slidesToShow: 2,
+                  slidesToScroll: 2,
+                  speed: 1500,
+                }}
+              />
+            </div>
+            <div className="brand__cards__promotions">
+              <Carousel
+                data={brandCards}
+                newSettings={{
+                  dots: false,
+                  slidesToShow: 6,
+                  slidesToScroll: 6,
+                  autoplay: false,
+                  showTittle: true,
+                  arrows: true,
+                }}
+              />
+            </div>
+          </div>
+        </section>*/}

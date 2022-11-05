@@ -5,6 +5,7 @@ header{
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    position: relative;
 }
 .header-container {
     display: flex;
@@ -83,18 +84,19 @@ header{
     cursor: pointer;
     padding: 0 10px;
 }
-.auth-container a {
+.auth-container span {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    padding: 3px 5px;
+    padding: 3px 2px;
+    color: #fff;
 }
-.auth-container a span {
+.auth-container span  span {
     font-size: 11px
     
 }
-.auth-container a p {
+.auth-container span  p {
     font-size: 13px;
     display: flex;
     justify-content: center;

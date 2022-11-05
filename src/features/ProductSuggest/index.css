@@ -1,0 +1,36 @@
+/* suggestions */
+.suggestions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  .header__suggestions {
+    position: sticky;
+    top: 0;
+    padding-top: 10px;
+    background-color: #F5F5FA;
+  }
+  .suggestions__title span{
+    width: 100%;
+    text-align: left;
+    font-size: 20px;
+    line-height: 28px;
+    color: #242424;
+  }
+  
+  .collections__list {
+    display: grid;
+    justify-content: space-between;
+    align-items: center;
+    width: 1240px;
+    /* height: 150px; */
+    grid-template-columns: repeat( auto-fit, minmax(150px, 1fr) );
+    /* grid-template-rows: 150px; */
+    gap: 5px 5px;
+    padding: 5px 0px;
+  }
+  .suggestion__contents {
+    height: 1000px;
+  }
