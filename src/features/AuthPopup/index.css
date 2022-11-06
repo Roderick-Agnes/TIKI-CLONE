@@ -87,10 +87,16 @@
 .left__contents .auth__form input.password {
     position: relative;
 }
+.left__contents .auth__form span.err__input {
+    color:#ff424e;
+    font-size: 11px;
+    margin-bottom: 7px;
+    font-style: italic;
+}
 .left__contents .auth__form span.statusPassword {
     position: absolute;
     right: 0;
-    top:45%;
+    
     color: #0D5CB6;
     cursor: pointer;
     font-size: 14px;
