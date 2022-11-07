@@ -17,6 +17,22 @@ main {
   background-color: #fff;
   border-radius: 5px;
 }
+.overlay{
+  position: fixed;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  -moz-opacity: 0.8;
+  filter: alpha(opacity=80);
+  opacity:.80;
+  z-index:1000;
+}
+.spinner {
+  background-color: black;
+  overflow: hidden;
+}
 /* 
 .banners ,.promotions {
   display: flex;

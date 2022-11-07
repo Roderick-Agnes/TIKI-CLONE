@@ -83,34 +83,81 @@ header{
     align-items: center;
     cursor: pointer;
     padding: 0 10px;
+    position: relative;
 }
-.auth-container span {
+.auth-container > span {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
     padding: 3px 2px;
     color: #fff;
+    height: 100%;
+    
 }
 .auth-container span  span {
-    font-size: 11px
-    
+    font-size: 11px;
+    margin-left: 5px;
 }
 .auth-container span  p {
     font-size: 13px;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-left: 5px;
+    margin-top: 3px;
+ 
 }
+ .options {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    padding-top: 26px;
+    z-index: 14;
+}
+ .options >  .head__icon {
+    position: absolute;
+    display: block;
+    z-index: 14;
+    
+}
+.options >  .head__icon svg > path {
+    box-shadow: rgb(0 0 0 / 18%) 0px 6px 12px 0px;
+}
+ .options .user__option {
+    display: block;
+    border: 1px solid rgb(239, 239, 239);
+    background: rgb(255, 255, 255);
+    width: auto;
+    min-width: 246px;
+    z-index: 15;
+    list-style: none;
+    margin: 0px;
+    /* padding: 10px 0px; */
+    border-radius: 0px 0px 3px 3px;
+    box-shadow: rgb(0 0 0 / 18%) 0px 6px 12px 0px;
+    position: absolute;
+    top: 45px;
+    left: calc(50% + 10px);
+    transform: translateX(-50%);
+
+}
+.MuiListItemText-primary {
+    font-size: 12px !important;
+    font: "Roboto";
+}
+
+
 .cart-container {
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    height: 100%;
 }
 .cart-badge {
-    color: rgb(36, 36, 36);
+    color: #fff;
     background: rgb(253, 216, 53);
     height: 20px;
     left: 20px;
@@ -129,7 +176,7 @@ header{
     font-weight: 200;
     align-self: flex-end;
     padding-left: 7px;
-
+    margin-bottom: 2px;
 }
 
 .category-search-container{
@@ -166,7 +213,7 @@ header{
     align-items: center;
     color: #fff;
     width: 100%;
-    background-color: #51ADFF;
+    /* background-color: #51ADFF; */
     height: 22px;
     padding: 0px 10px 0px 10px;
     border-radius: 10px;

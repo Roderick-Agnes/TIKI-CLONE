@@ -15,7 +15,7 @@
     position: fixed;
     overflow-y: scroll;
     overflow: hidden;
-    transition: all 1.5s ease-in;
+    /* transition: all 1.5s ease-in; */
 }
 .popup__item {
     min-width: 50%;

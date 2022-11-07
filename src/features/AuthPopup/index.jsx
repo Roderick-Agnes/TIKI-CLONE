@@ -7,6 +7,11 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import YupPassword from "yup-password";
+import { useDispatch } from "react-redux";
+import { unwrapResult } from "@reduxjs/toolkit";
+import { loginAction, registerAction } from "../../redux/custom/authRequest";
+import { toast } from "react-toastify";
+
 YupPassword(yup);
 
 const requiredField = () => yup.string().required();
@@ -43,8 +48,10 @@ const registerSchema = yup
   .required();
 
 export const LoginComponent = (props) => {
-  const { showPassword, setShowPassword, isLoginAction, setIsLoginAction } = props;
+  const { showPassword, setShowPassword, isLoginAction, setIsLoginAction, togglePopup } =
+    props;
   const [topSize, setTopSize] = useState(32);
+  const dispatch = useDispatch();
 
   const {
     register,
@@ -62,8 +69,10 @@ export const LoginComponent = (props) => {
     if (errors.username?.message && errors.password?.message) setTopSize(35);
   }, [errors.username?.message, errors.password?.message]);
 
-  const onLoginSubmit = (data) => {
-    console.log(data);
+  const onLoginSubmit = async (data) => {
+    console.log("user: ", data);
+
+    await loginAction(data, dispatch, togglePopup);
   };
 
   return (
@@ -134,6 +143,11 @@ export const LoginComponent = (props) => {
 export const RegisterComponent = (props) => {
   const { showPassword, setShowPassword, isLoginAction, setIsLoginAction } = props;
   const [topSize, setTopSize] = useState(45);
+  const dispatch = useDispatch();
+
+  const toggleLoginAction = () => {
+    setIsLoginAction(!isLoginAction);
+  };
 
   const {
     register,
@@ -142,8 +156,11 @@ export const RegisterComponent = (props) => {
   } = useForm({
     resolver: yupResolver(registerSchema),
   });
-  const onRegisterSubmit = (data) => {
-    console.log(data);
+
+  const onRegisterSubmit = async (data) => {
+    console.log("user: ", data);
+
+    await registerAction(data, dispatch, toggleLoginAction);
   };
 
   useEffect(() => {
@@ -219,14 +236,7 @@ export const RegisterComponent = (props) => {
       <div className="toggle__method">
         <span>
           Đã có tài khoản?
-          <p
-            onClick={() => {
-              setIsLoginAction(!isLoginAction);
-            }}
-          >
-            {" "}
-            Đăng nhập ngay
-          </p>
+          <p onClick={toggleLoginAction}> Đăng nhập ngay</p>
         </span>
       </div>
     </>
@@ -254,6 +264,7 @@ const AuthPopup = (props) => {
                   setShowPassword={setShowPassword}
                   isLoginAction={isLoginAction}
                   setIsLoginAction={setIsLoginAction}
+                  togglePopup={togglePopup}
                 />
               ) : (
                 <RegisterComponent
