@@ -9,8 +9,8 @@
     min-height: 78px;
     border-radius: 4px;
     padding: 4px 8px;
-    outline: none;
-    border: none;
+    /* outline: none; */
+    /* border: 0.2px solid rgb(13, 92, 182); */
 }
 /* .collection__item:nth-child(1){
     border: 1px solid rgb(13, 92, 182);
@@ -18,12 +18,6 @@
 .collection__item:nth-child(1) > span {
     color: rgb(13, 92, 182);
 } */
-.collection__item:focus{
-    border: 1px solid rgb(13, 92, 182);
-}
-.collection__item:focus > span {
-    color: rgb(13, 92, 182);
-}
 
 .collection__item img {
     max-width: 48px;
@@ -35,4 +29,11 @@
     font-size: 13px;
     padding: 4px;
     color: rgb(120, 120, 120);
+}
+
+.active{
+    border: 0.2px solid rgb(13, 92, 182) !important;
+}
+.active .title {
+    color: rgb(13, 92, 182);
 }

@@ -4,7 +4,7 @@ import { loginFulfilled } from "../redux/userSlice";
 import userApi from "./userApi";
 
 let axiosClient = axios.create({
-  baseURL: "http://localhost:5000/api",
+  baseURL: "https://agnes-shop-api.onrender.com/api",
   headers: {
     "Content-Type": "application/json",
   },

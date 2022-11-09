@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useCallback } from "react";
 import { useEffect, useState } from "react";
 import collectionApi from "../../api/collectionApi";
 import CollectionItem from "../../components/CollectionItem";
@@ -11,8 +12,8 @@ const API_COLLECTIONS_URL =
 
 const ProductSuggest = () => {
   const [collections, setCollections] = useState([]);
-  const [collectionKey, setCollectionKey] = useState(0);
   const [dataCollection, setDataCollection] = useState([]);
+  const [itemIsActived, setItemIsActived] = useState(0);
   useEffect(() => {
     (async () => {
       try {
@@ -22,7 +23,6 @@ const ProductSuggest = () => {
           itemLimit: 30,
           collectionLimit: 8,
         };
-
         const res = await collectionApi.getCollections(params);
         setCollections(res);
       } catch (error) {
@@ -30,6 +30,20 @@ const ProductSuggest = () => {
       }
     })();
   }, []);
+
+  // SET DATA COLLECTTIONS IN FIRST TIME RENDERING
+  useEffect(() => {
+    if (collections.length > 0) {
+      setDataCollection(collections[0].products);
+    }
+  }, [collections]);
+
+  // SET DATA WITH POSITION OF COLLECTTIONS
+  const chooseCollection = async (idx) => {
+    setDataCollection(collections[idx].products);
+    setItemIsActived(idx);
+  };
+
   return (
     <section className="suggestions">
       <div className="header__suggestions">
@@ -45,10 +59,9 @@ const ProductSuggest = () => {
                   image_url={item.thumbnail_icon}
                   title={item.title}
                   onClick={() => {
-                    setCollectionKey(index);
-                    setDataCollection(collections[collectionKey]?.products);
-                    console.log("index:", index);
+                    chooseCollection(index);
                   }}
+                  isActive={index === itemIsActived ? true : false}
                 />
               );
             })}
@@ -57,10 +70,10 @@ const ProductSuggest = () => {
       </div>
       <div className="__container__no_padding__">
         <div className="suggestion__contents">
-          {console.log("data:", dataCollection?.length)}
-          {dataCollection &&
-            dataCollection.map((item) => {
-              return <Product key={item._id} info={item} />;
+          {dataCollection.length > 0 &&
+            dataCollection.map((item, idx) => {
+              console.log(item);
+              return <Product key={item._id || idx} info={item} />;
             })}
         </div>
       </div>

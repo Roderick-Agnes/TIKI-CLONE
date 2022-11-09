@@ -17,9 +17,7 @@ const Product = (props) => {
     discountRate,
     freeShip,
   } = info;
-  useEffect(() => {
-    console.log("ratting_average: ", rating_average);
-  }, []);
+  useEffect(() => {}, []);
   return (
     <>
       <div className="product__item">

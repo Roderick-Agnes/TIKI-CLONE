@@ -1,10 +1,11 @@
 import axiosClient from "./axiosClient";
 
 const collectionApi = {
-  getCollections(params) {
+  async getCollections(params) {
     const newParams = { ...params };
     const url = `/collections/`;
-    return axiosClient.get(url, { params: newParams });
+    const res = await axiosClient.get(url, { params: newParams });
+    return res;
   },
   gettCollectionById(id) {
     const url = `/collections/${id}`;
