@@ -33,8 +33,7 @@ const Carousel = (props) => {
           ? newSettings.autoplay
           : true,
       slidesToShow:
-        typeof newSettings.slidesToShow !== "undefined" ||
-        newSettings.slidesToShow
+        typeof newSettings.slidesToShow !== "undefined" || newSettings.slidesToShow
           ? newSettings.slidesToShow
           : 1,
       dotsClass:
@@ -46,8 +45,7 @@ const Carousel = (props) => {
           ? newSettings.infinite
           : true,
       slidesToScroll:
-        typeof newSettings.slidesToScroll !== "undefined" ||
-        newSettings.slidesToScroll
+        typeof newSettings.slidesToScroll !== "undefined" || newSettings.slidesToScroll
           ? newSettings.slidesToScroll
           : 1,
       arrows:
@@ -60,49 +58,51 @@ const Carousel = (props) => {
     <>
       <Slider {...settings}>
         {data.map((item) => {
-              return (
-                <div key={item.deal_id} className="deal-container">
-                  <a href={"#"} className="deal-item">
-                    <div className='image-container'>
+          return (
+            <div key={item.deal_id} className="deal-container">
+              <div className="deal-item">
+                <div className="image-container">
+                  <img
+                    src={item.product.thumbnail_url}
+                    alt={item.product.name}
+                    className="deal-image"
+                  />
+                  {item.product.badges_new.map((item, index) => {
+                    return item.type === "icon_badge" ? (
                       <img
-                        src={item.product.thumbnail_url}
-                        alt={item.product.name}
-                        className="deal-image"
+                        key={index}
+                        src={item.icon}
+                        alt="freeship_tikifast"
+                        className="freeship_tikifast_icon"
                       />
-                      {
-                        item.product.badges_new.map((item, index) => {
-                          return(
-                            item.type === 'icon_badge' ? (
-                              <img key={index} src={item.icon} alt='freeship_tikifast' className="freeship_tikifast_icon"/>
-                            ) : ("")
-                          )
-                        })
-                      }
-                    </div>
-                    
-                    <div className="product-des">
-                      <span className="special__price">
-                        {item.special_price.toLocaleString("it-IT")} ₫
-                      </span>
-                      <span className="deals__discount">
-                        -{item.discount_percent}%
-                      </span>
-                    </div>
-                    <div className="deal__qty">
-                      <div
-                        className="deal__progress"
-                        style={{ width: item.progress.ordered_percent }}
-                      ></div>
-                      {item.progress.is_hot_flag && item.progress.is_hot_flag !== 'undefined' ? (
-                        <img
-                        src="https://frontend.tikicdn.com/_desktop-next/static/img/fire_icon.svg"
-                        className="fire_icon"
-                        alt="fire_icon"
-                      />
-                      ) : (
-                        ""
-                      )}
-                      {/* {item.progress.status === "progress-bar-success" ? (
+                    ) : (
+                      ""
+                    );
+                  })}
+                </div>
+
+                <div className="product-des">
+                  <span className="special__price">
+                    {item.special_price.toLocaleString("it-IT")} ₫
+                  </span>
+                  <span className="deals__discount">-{item.discount_percent}%</span>
+                </div>
+                <div className="deal__qty">
+                  <div
+                    className="deal__progress"
+                    style={{ width: item.progress.ordered_percent }}
+                  ></div>
+                  {item.progress.is_hot_flag &&
+                  item.progress.is_hot_flag !== "undefined" ? (
+                    <img
+                      src="https://frontend.tikicdn.com/_desktop-next/static/img/fire_icon.svg"
+                      className="fire_icon"
+                      alt="fire_icon"
+                    />
+                  ) : (
+                    ""
+                  )}
+                  {/* {item.progress.status === "progress-bar-success" ? (
                         ""
                       ) : (
                         <img
@@ -112,12 +112,12 @@ const Carousel = (props) => {
                         />
                       )} */}
 
-                      <span>{item.progress.progress_text}</span>
-                    </div>
-                  </a>
+                  <span>{item.progress.progress_text}</span>
                 </div>
-              );
-            })}
+              </div>
+            </div>
+          );
+        })}
       </Slider>
     </>
   );

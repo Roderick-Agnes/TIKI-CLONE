@@ -31,6 +31,16 @@
     gap: 5px 5px;
     padding: 5px 0px;
   }
+  
   .suggestion__contents {
-    height: 1000px;
+    max-width: fit-content;
+    /* width: fit-content; */
+    /* height: 1000px; */
+    background-color: #F5F5FA;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5em;
+    overflow: hidden;
   }
+  

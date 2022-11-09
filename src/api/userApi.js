@@ -8,18 +8,21 @@ const userApi = {
   },
   login(data) {
     const url = "/auth/login";
-    return axiosClient.post(url, data);
+    const res = axiosClient.post(url, data);
+    console.log("payload: ", res);
+    return res;
   },
   refreshToken() {
     // send accessToken to server
     const url = "/auth/refresh";
-    return axiosClient.post(url);
+    const res = axiosClient.post(url, { withCredentials: true });
+    return res;
   },
-  async logout(data) {
-    console.log("logout data in userApi file: ", data);
+  async logout(headers, requestInterceptor) {
+    console.log("logout data in userApi file: ", headers);
     // send accessToken to server
-    const url = "/auth/logout";
-    const res = await axiosClient.post(url, {}, data);
+    const url = `/auth/logout`;
+    const res = requestInterceptor.post(url, {}, headers);
     console.log("response data in userApi file: ", res);
     return res;
   },

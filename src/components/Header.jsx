@@ -12,8 +12,9 @@ import { IoMdArrowDropup } from "react-icons/io";
 import { CiLogout } from "react-icons/ci";
 import { useState } from "react";
 import { logoutAction } from "../redux/custom/authRequest";
-import { useEffect } from "react";
+import { axiosRequestInterceptor } from "../api/axiosClient";
 import { useCallback } from "react";
+import { useEffect } from "react";
 
 const style = {
   width: "100%",
@@ -23,7 +24,8 @@ const style = {
 const Header = (props) => {
   const { togglePopup } = props;
   const [showOptions, setShowOptions] = useState(false);
-  const userInfo = useSelector((state) => state.user);
+  const userInfo = useSelector((state) => state?.user || null);
+  const accessToken = userInfo?.info?.accessToken;
 
   const dispatch = useDispatch();
 
@@ -32,17 +34,22 @@ const Header = (props) => {
   };
 
   const handleLogout = async () => {
-    const accessToken = userInfo.info.accessToken;
-    console.log(accessToken);
-    await logoutAction(
-      {
-        headers: {
-          token: `Bearer ${accessToken}`,
+    // console.log(accessToken);
+    const interceptor = await axiosRequestInterceptor(userInfo, dispatch);
+    try {
+      await logoutAction(
+        {
+          headers: {
+            token: `Bearer ${accessToken}`,
+          },
         },
-      },
-      dispatch,
-      toggleShowOptions
-    );
+        dispatch,
+        toggleShowOptions,
+        interceptor
+      );
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { REHYDRATE } from "redux-persist";
 
 const userSlice = createSlice({
   name: "user",
@@ -44,6 +45,11 @@ const userSlice = createSlice({
     logoutFulfilled: (state, action) => {
       state.info = null;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(REHYDRATE, (state) => {
+      
+    });
   },
 });
 const { actions, reducer } = userSlice;

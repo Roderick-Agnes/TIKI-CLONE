@@ -13,7 +13,17 @@ main {
   justify-content: center;
   align-items: center;
   width: 1240px;
-  padding: 15px 15px 15px 15px;
+  padding: 15px;
+  background-color: #fff;
+  border-radius: 5px;
+  /* position: relative; */
+}
+.__container__no_padding__ {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 1240px;
   background-color: #fff;
   border-radius: 5px;
 }
@@ -210,6 +220,10 @@ main {
   /* flex-basis: 103px;
   flex-shrink: 0; */
   padding: 5px 5px;
+  cursor: pointer;
+}
+.home__quicklinks__tab__container a:hover{
+  /* box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px; */
 }
 .home__quicklinks__tab__container a img{
   width: 48px;

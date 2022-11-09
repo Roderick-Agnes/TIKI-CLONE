@@ -1,6 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import collectionApi from "../../api/collectionApi";
 import CollectionItem from "../../components/CollectionItem";
+import Product from "./components/Product";
+
 import "./index.css";
 
 const API_COLLECTIONS_URL =
@@ -9,18 +12,19 @@ const API_COLLECTIONS_URL =
 const ProductSuggest = () => {
   const [collections, setCollections] = useState([]);
   const [collectionKey, setCollectionKey] = useState(0);
-  const [dataCollection, setDataCollection] = useState(
-    collections[collectionKey]?.items // async collection
-  );
+  const [dataCollection, setDataCollection] = useState([]);
   useEffect(() => {
     (async () => {
       try {
         //set collections data to state
         // setDataCollections();
-        await axios.get(API_COLLECTIONS_URL).then((res) => {
-          setCollections(res.data.tabs);
-          // setDataCollection(collections[0]?.items);
-        });
+        const params = {
+          itemLimit: 30,
+          collectionLimit: 8,
+        };
+
+        const res = await collectionApi.getCollections(params);
+        setCollections(res);
       } catch (error) {
         console.log(error);
       }
@@ -37,13 +41,12 @@ const ProductSuggest = () => {
             {collections.map((item, index) => {
               return (
                 <CollectionItem
-                  key={item.id ? item.id : index}
-                  image_url={item.icon}
+                  key={item._id ? item._id : index}
+                  image_url={item.thumbnail_icon}
                   title={item.title}
-                  url={item.more_link}
                   onClick={() => {
                     setCollectionKey(index);
-                    setDataCollection(collections[collectionKey]?.items);
+                    setDataCollection(collections[collectionKey]?.products);
                     console.log("index:", index);
                   }}
                 />
@@ -52,8 +55,14 @@ const ProductSuggest = () => {
           </div>
         </div>
       </div>
-      <div className="suggestion__contents __container__">
-        {console.log("data:", dataCollection?.length)}
+      <div className="__container__no_padding__">
+        <div className="suggestion__contents">
+          {console.log("data:", dataCollection?.length)}
+          {dataCollection &&
+            dataCollection.map((item) => {
+              return <Product key={item._id} info={item} />;
+            })}
+        </div>
       </div>
     </section>
   );

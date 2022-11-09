@@ -9,7 +9,7 @@ import FeatureCategory from "./features/FeatureCategory";
 import PrimaryBanner from "./features/PrimaryBanner";
 import ProductSuggest from "./features/ProductSuggest";
 import AuthPopup from "./features/AuthPopup";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import SyncLoader from "react-spinners/SyncLoader";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -28,6 +28,7 @@ function App() {
   const [showPopup, setShowPopup] = useState(false);
   const [category, setCategory] = useState([]);
 
+  const dispatch = useDispatch();
   const userStore = useSelector((state) => state.user);
 
   const togglePopup = () => {

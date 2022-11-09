@@ -1,6 +1,9 @@
 import axios from "axios";
+import jwt_decode from "jwt-decode";
+import { loginFulfilled } from "../redux/userSlice";
+import userApi from "./userApi";
 
-const axiosClient = axios.create({
+let axiosClient = axios.create({
   baseURL: "http://localhost:5000/api",
   headers: {
     "Content-Type": "application/json",
@@ -9,16 +12,39 @@ const axiosClient = axios.create({
 
 // Interceptors
 // Add a request interceptor
-axiosClient.interceptors.request.use(
-  function (config) {
-    // Do something before request is sent
-    return config;
-  },
-  function (error) {
-    // Do something with request error
-    return Promise.reject(error);
-  }
-);
+
+export const axiosRequestInterceptor = (payload, dispatch) => {
+  axiosClient.interceptors.request.use(
+    async (config) => {
+      console.log("this is a axiosRequestInterceptor ");
+      let date = new Date();
+      const user = payload;
+
+      const decoded = jwt_decode(user?.info?.accessToken);
+
+      if (decoded && decoded?.exp < date.getTime() / 1000) {
+        console.log("token exprired");
+        // CALL REQUEST TOKEN
+        const res = await userApi.refreshToken();
+        console.log("refreshToken: ", res);
+        const requestUser = {
+          ...user?.info,
+          accessToken: res.accessToken,
+        };
+        // CALL LOGIN FULFILLED TO UPDATE INFO OF USER IN STORE
+        dispatch(loginFulfilled(requestUser));
+
+        // SET TOKEN TO HEADERS
+        config.headers["token"] = requestUser.accessToken;
+      }
+      return config;
+    },
+    (err) => {
+      return Promise.reject(err);
+    }
+  );
+  return axiosClient;
+};
 
 // Add a response interceptor
 axiosClient.interceptors.response.use(
@@ -31,15 +57,6 @@ axiosClient.interceptors.response.use(
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
 
-    // const { config, status, data } = error.response;
-    // const URLS = ["/auth/local/register", "/auth/local"];
-    // if (URLS.includes(config.url) && status === 400) {
-    //   const errors = data.data || [];
-    //   const fisrtError = errors.length > 0 ? errors[0] : {};
-    //   const messages = fisrtError.messages || [];
-    //   const firstMessage = messages.length > 0 ? messages[0] : {};
-    //   throw new Error(firstMessage.message);
-    // }
     return Promise.reject(error);
   }
 );

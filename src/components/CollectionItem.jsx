@@ -1,7 +1,7 @@
 import "./css/collection-item.css";
 
 const CollectionItem = (props) => {
-  const { image_url, title, url, onClick } = props;
+  const { image_url, title, onClick } = props;
 
   return (
     <>

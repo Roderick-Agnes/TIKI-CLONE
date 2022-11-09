@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+import categoryApi from "../../api/categoryApi";
 import QuickLinksTab from "../../components/QuickLinksTab";
 import "./index.css";
 
@@ -13,8 +14,8 @@ function FeatureCategory(props) {
     (async () => {
       try {
         //set featured categories data to state
-        await axios.get(API_FEATURED_CATEGORY_URL).then((res) => {
-          setFeaturedCategories(res.data.items);
+        await categoryApi.getCategories().then((res) => {
+          setFeaturedCategories(res);
         });
       } catch (error) {
         console.log(error);
@@ -32,10 +33,9 @@ function FeatureCategory(props) {
           {featuredCategories.map((item, index) => {
             return (
               <QuickLinksTab
-                key={item.id ? item.id : index}
-                image_url={item.thumbnail_url}
-                title={item.name}
-                url={item.url}
+                key={item._id ? item._id : index}
+                image_url={item.thumbnail}
+                title={item.title}
               />
             );
           })}

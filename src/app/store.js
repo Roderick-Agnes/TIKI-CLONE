@@ -16,6 +16,7 @@ const persistConfig = {
   key: "root",
   version: 1,
   storage,
+  whitelist: ["user"],
 };
 
 const rootReducer = combineReducers({ user: userReducer });
@@ -26,7 +27,7 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        ignoredActions: [FLUSH, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }),
 });

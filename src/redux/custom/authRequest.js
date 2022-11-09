@@ -65,10 +65,9 @@ export const loginAction = async (payload, dispatch, callback) => {
     console.log("login error: ", error);
   }
 };
-export const logoutAction = async (payload, dispatch, callback) => {
+export const logoutAction = async (payload, dispatch, callback, interceptor) => {
   try {
-    console.log("payload in logout callback: ", payload);
-    await userApi.logout(payload);
+    await userApi.logout(payload, interceptor);
 
     // REMOVE USER INFO FROM LOCAL STORAGE
     localStorage.removeItem("USER_INFO");
@@ -77,13 +76,13 @@ export const logoutAction = async (payload, dispatch, callback) => {
     await dispatch(logoutFulfilled());
 
     // CLOSE USER OPTIONS
-    callback();
+    callback && callback();
 
     // SHOW TOASTIFY
     successToast({ title: "Logout successful" });
   } catch (error) {
     // SHOW TOASTIFY
-    errorToast({ title: error.response.data.message || "Logout failed!" });
-    console.log(error);
+    errorToast({ title: error?.response?.data.message || "Logout failed!" });
+    console.log("error in logout action: ", error);
   }
 };
