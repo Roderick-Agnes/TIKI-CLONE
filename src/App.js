@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import SyncLoader from "react-spinners/SyncLoader";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Footer from "./components/Footer";
 
 const override = {
   position: "fixed",
@@ -99,6 +100,7 @@ function App() {
         <PrimaryBanner />
         <ProductSuggest />
       </main>
+      <Footer />
     </div>
   );
 }

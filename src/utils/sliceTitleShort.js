@@ -8,6 +8,6 @@ export const sliceTitleShort = (str, size) => {
       if (strSave.length <= size) strSave += " ";
       else strSave = tmp;
       return strSave;
-    }, "") + "..."
+    }, "") + "…"
   );
 };

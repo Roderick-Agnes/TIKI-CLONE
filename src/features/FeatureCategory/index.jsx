@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import categoryApi from "../../api/categoryApi";
 import QuickLinksTab from "../../components/QuickLinksTab";
+import { sliceTitleShort } from "../../utils/sliceTitleShort";
 import "./index.css";
 
 const API_FEATURED_CATEGORY_URL =
@@ -27,15 +28,15 @@ function FeatureCategory(props) {
     <section className="featured__category">
       <div className="__container__">
         <div className="header__features__category">
-          <span>Danh mục nổi bật</span>
+          <span>Danh mục sản phẩm</span>
         </div>
         <div className="home__quicklinks__tab__container">
           {featuredCategories.map((item, index) => {
             return (
               <QuickLinksTab
-                key={item._id ? item._id : index}
+                key={item?.id ? item.id : index}
                 image_url={item.thumbnail}
-                title={item.title}
+                title={sliceTitleShort(item.title, 25)}
               />
             );
           })}

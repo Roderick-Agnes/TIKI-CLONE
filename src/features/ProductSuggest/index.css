@@ -34,13 +34,38 @@
   
   .suggestion__contents {
     max-width: fit-content;
-    /* width: fit-content; */
-    /* height: 1000px; */
     background-color: #F5F5FA;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     gap: 0.5em;
+    padding-top: 0.5rem;
     overflow: hidden;
+  }
+  .suggestion__contents .load__more {
+    margin: 1rem 0;
+    color: #1A94FF;
+    border: solid 0.2px #1A94FF !important;
+    background-color: transparent;
+    border-radius: 3px;
+    padding: 0.5rem 1rem;
+    min-width: 10rem;
+    min-height: 2rem;
+    width: 12rem;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .suggestion__contents .load__more:hover {
+    background-color: #1A94FF;
+    color: #fff;
+  }
+  .is__loading {
+    background-color: #1A94FF !important;
+    color: #fff !important;
   }
   

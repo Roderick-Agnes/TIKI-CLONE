@@ -1,4 +1,4 @@
-import { sliceTitleShort } from "../../../../utils/shortString";
+import { sliceTitleShort } from "../../../../utils/sliceTitleShort";
 import { AiFillStar } from "react-icons/ai";
 import "./index.css";
 import { useEffect } from "react";
@@ -28,10 +28,12 @@ const Product = (props) => {
           <div className="product__name">{sliceTitleShort(title, 40)}</div>
           <div className="product__rates">
             {rating_average > 0 && (
-              <span>
-                {rating_average}
-                <AiFillStar color="#FDD940" size={"13px"} />
-              </span>
+              <>
+                <span>{rating_average}</span>
+                <span>
+                  <AiFillStar color="#FDD940" size={"13px"} />
+                </span>
+              </>
             )}
 
             {rating_average > 0 && quantitySold > 0 && (
