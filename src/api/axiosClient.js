@@ -2,27 +2,39 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { loginFulfilled } from "../redux/userSlice";
 import userApi from "./userApi";
-
+//https://agnes-shop-api.herokuapp.com/
+// http://localhost:5000
 let axiosClient = axios.create({
-  baseURL: "http://localhost:5000/api",
+  baseURL:
+    "https://agnes-shop-api.herokuapp.com/api",
   headers: {
     "Content-Type": "application/json",
   },
+  withCredentials: true,
 });
 
 // Interceptors
 // Add a request interceptor
 
-export const axiosRequestInterceptor = (payload, dispatch) => {
-  axiosClient.interceptors.request.use(
+export const axiosRequestInterceptor = async (
+  payload,
+  dispatch,
+) => {
+  await axiosClient.interceptors.request.use(
     async (config) => {
-      console.log("this is a axiosRequestInterceptor ");
-      let date = new Date();
+      console.log(
+        "this is a axiosRequestInterceptor ",
+      );
       const user = payload;
 
-      const decoded = jwt_decode(user?.info?.accessToken);
+      const decoded = jwt_decode(
+        user?.info?.accessToken,
+      );
 
-      if (decoded && decoded?.exp < date.getTime() / 1000) {
+      if (
+        decoded?.exp * 1000 <
+        new Date().getTime()
+      ) {
         console.log("token exprired");
         // CALL REQUEST TOKEN
         const res = await userApi.refreshToken();
@@ -35,13 +47,14 @@ export const axiosRequestInterceptor = (payload, dispatch) => {
         dispatch(loginFulfilled(requestUser));
 
         // SET TOKEN TO HEADERS
-        config.headers["token"] = requestUser.accessToken;
+        config.headers["token"] =
+          requestUser.accessToken;
       }
       return config;
     },
     (err) => {
       return Promise.reject(err);
-    }
+    },
   );
   return axiosClient;
 };
@@ -58,7 +71,7 @@ axiosClient.interceptors.response.use(
     // Do something with response error
 
     return Promise.reject(error);
-  }
+  },
 );
 
 export default axiosClient;

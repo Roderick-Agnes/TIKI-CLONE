@@ -11,16 +11,26 @@ import {
 import { successToast } from "../../utils/successToast";
 import { errorToast } from "../../utils/errorToast";
 
-export const registerAction = async (payload, dispatch, callback) => {
+export const registerAction = async (
+  payload,
+  dispatch,
+  callback,
+) => {
   dispatch(registerPending());
   try {
-    const newUser = await userApi.register(payload);
+    const newUser = await userApi.register(
+      payload,
+    );
 
     // save data to local storage
-    localStorage.setItem("USER_INFO", JSON.stringify(newUser));
+    localStorage.setItem(
+      "USER_INFO",
+      JSON.stringify(newUser),
+    );
     await dispatch(registerFulfilled(newUser));
     successToast({
-      title: "Account has been registered. Please log in here !",
+      title:
+        "Account has been registered. Please log in here !",
     });
 
     callback && callback();
@@ -30,12 +40,20 @@ export const registerAction = async (payload, dispatch, callback) => {
     dispatch(registerRejected());
 
     // SHOW TOASTIFY
-    errorToast({ title: error.response.data.message || "Failed to register." });
+    errorToast({
+      title:
+        error.response.data.message ||
+        "Failed to register.",
+    });
 
     console.log(error);
   }
 };
-export const loginAction = async (payload, dispatch, callback) => {
+export const loginAction = async (
+  payload,
+  dispatch,
+  callback,
+) => {
   dispatch(loginPending());
   try {
     const response = await userApi.login(payload);
@@ -44,7 +62,10 @@ export const loginAction = async (payload, dispatch, callback) => {
     console.log("typeof info: ", typeof info);
 
     // SAVE USER INFO TO LOCAL STORAGE
-    localStorage.setItem("USER_INFO", JSON.stringify(response));
+    localStorage.setItem(
+      "USER_INFO",
+      JSON.stringify(response),
+    );
 
     // CALL loginFulfilled function to save data to user store
     await dispatch(loginFulfilled(response));
@@ -60,12 +81,21 @@ export const loginAction = async (payload, dispatch, callback) => {
     dispatch(loginRejected());
 
     // SHOW TOASTIFY
-    errorToast({ title: error.response.data.message || "Username or password invalid!" });
+    errorToast({
+      title:
+        error.response.data.message ||
+        "Username or password invalid!",
+    });
 
     console.log("login error: ", error);
   }
 };
-export const logoutAction = async (payload, dispatch, callback, interceptor) => {
+export const logoutAction = async (
+  payload,
+  dispatch,
+  callback,
+  interceptor,
+) => {
   try {
     await userApi.logout(payload, interceptor);
 
@@ -82,7 +112,14 @@ export const logoutAction = async (payload, dispatch, callback, interceptor) => 
     successToast({ title: "Logout successful" });
   } catch (error) {
     // SHOW TOASTIFY
-    errorToast({ title: error?.response?.data.message || "Logout failed!" });
-    console.log("error in logout action: ", error);
+    errorToast({
+      title:
+        error?.response?.data.message ||
+        "Logout failed!",
+    });
+    console.log(
+      "error in logout action: ",
+      error,
+    );
   }
 };

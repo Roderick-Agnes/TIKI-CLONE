@@ -1,5 +1,8 @@
 import Carousel from "../../components/Carousel";
-import React, { useEffect, useState } from "react";
+import React, {
+  useEffect,
+  useState,
+} from "react";
 import Banner from "../../components/Banner";
 import axios from "axios";
 import "./index.css";
@@ -17,14 +20,20 @@ function Slider(props) {
     (async () => {
       try {
         //set banners data to state
-        await axios.get(API_BANNERS_URL).then((res) => {
-          setBanners(res.data.data);
-        });
+        await axios
+          .get(API_BANNERS_URL)
+          .then((res) => {
+            setBanners(res.data.data);
+          });
         //set god banner data to state
-        await axios.get(API_GOD_BANNER_URL).then((res) => {
-          console.log("banner: " + res.data.banner);
-          setGodBanner(res.data.banner);
-        });
+        await axios
+          .get(API_GOD_BANNER_URL)
+          .then((res) => {
+            console.log(
+              "banner: " + res.data.banner,
+            );
+            setGodBanner(res.data.banner);
+          });
       } catch (err) {
         console.log(err);
       }
@@ -35,7 +44,10 @@ function Slider(props) {
     <section className="banners">
       <div className="banners-container">
         <div className="carousel-banners">
-          <Carousel data={banners} newSettings={{}} />
+          <Carousel
+            data={banners}
+            newSettings={{}}
+          />
         </div>
         <div className="banner-product">
           <Banner

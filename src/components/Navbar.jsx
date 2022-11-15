@@ -19,32 +19,43 @@ const Navbar = (props) => {
     prevArrow: <PrevArrow />,
     nextArrow: <NextArrow />,
   };
-  const [settings, setSettings] = useState(default_settings);
+  const [settings, setSettings] = useState(
+    default_settings,
+  );
   useEffect(() => {
     setSettings({
       ...settings,
       dots:
-        newSettings.dots || typeof newSettings.dots !== "undefined"
+        newSettings.dots ||
+        typeof newSettings.dots !== "undefined"
           ? newSettings.dots
           : false,
       speed:
-        newSettings.speed || typeof newSettings.speed !== "undefined"
+        newSettings.speed ||
+        typeof newSettings.speed !== "undefined"
           ? newSettings.speed
           : 500,
       autoplay:
-        newSettings.autoplay || typeof newSettings.autoplay !== "undefined"
+        newSettings.autoplay ||
+        typeof newSettings.autoplay !==
+          "undefined"
           ? newSettings.autoplay
           : false,
       slidesToShow:
-        newSettings.slidesToShow || typeof newSettings.slidesToShow !== "undefined"
+        newSettings.slidesToShow ||
+        typeof newSettings.slidesToShow !==
+          "undefined"
           ? newSettings.slidesToShow
           : 1,
       dotsClass:
-        newSettings.dotsClass || typeof newSettings.dotsClass !== "undefined"
+        newSettings.dotsClass ||
+        typeof newSettings.dotsClass !==
+          "undefined"
           ? newSettings.dotsClass
           : `slick-dots`,
       arrows:
-        newSettings.arrows || typeof newSettings.arrows !== "undefined"
+        newSettings.arrows ||
+        typeof newSettings.arrows !== "undefined"
           ? newSettings.arrows
           : false,
     });
@@ -58,8 +69,14 @@ const Navbar = (props) => {
             <Slider {...settings}>
               {data.map((slide, index) => {
                 return (
-                  <div key={index} className="nav-item">
-                    <a href="#" className="nav-title">
+                  <div
+                    key={index}
+                    className="nav-item"
+                  >
+                    <a
+                      href="#"
+                      className="nav-title"
+                    >
                       {slide.name}
                     </a>
                   </div>

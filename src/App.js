@@ -1,19 +1,29 @@
-import { useEffect, useState, CSSProperties } from "react";
+import {
+  useEffect,
+  useState,
+  CSSProperties,
+} from "react";
 import axios from "axios";
 import "./App.css";
-import Header from "./components/Header";
 import Navbar from "./components/Navbar";
-import Slider from "./features/Slider";
 import Promotion from "./features/Promotion";
 import FeatureCategory from "./features/FeatureCategory";
 import PrimaryBanner from "./features/PrimaryBanner";
-import ProductSuggest from "./features/ProductSuggest";
 import AuthPopup from "./features/AuthPopup";
-import { useDispatch, useSelector } from "react-redux";
+import {
+  useDispatch,
+  useSelector,
+} from "react-redux";
 import SyncLoader from "react-spinners/SyncLoader";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Footer from "./components/Footer";
+
+// modified mobile view
+import Footer from "./templates/Footer";
+import Navigation from "./templates/Navigation";
+import Header from "./templates/Header";
+import Sliders from "./templates/Sliders";
+import ProductSuggest from "./templates/ProductSuggest";
 
 const override = {
   position: "fixed",
@@ -26,11 +36,14 @@ const override = {
 };
 
 function App() {
-  const [showPopup, setShowPopup] = useState(false);
+  const [showPopup, setShowPopup] =
+    useState(false);
   const [category, setCategory] = useState([]);
 
   const dispatch = useDispatch();
-  const userStore = useSelector((state) => state.user);
+  const userStore = useSelector(
+    (state) => state.user,
+  );
 
   const togglePopup = () => {
     setShowPopup(!showPopup);
@@ -43,9 +56,11 @@ function App() {
     (async () => {
       try {
         //set category data to state
-        axios.get(API_CATEGORY_URL).then((res) => {
-          setCategory(res.data.data);
-        });
+        axios
+          .get(API_CATEGORY_URL)
+          .then((res) => {
+            setCategory(res.data.data);
+          });
       } catch (err) {
         console.log(err);
       }
@@ -54,8 +69,14 @@ function App() {
 
   return (
     <div
-      className="app"
-      style={{ position: `${showPopup || userStore.isLoading ? "fixed" : "relative"}` }}
+      className="w-full max-w-full h-screen bg-blue"
+      style={{
+        position: `${
+          showPopup || userStore.isLoading
+            ? "fixed"
+            : "relative"
+        }`,
+      }}
     >
       <ToastContainer
         position="top-right"
@@ -82,9 +103,24 @@ function App() {
         </span>
       )}
 
-      {showPopup ? <AuthPopup togglePopup={togglePopup} /> : <></>}
-      <Header togglePopup={togglePopup} />
-      <Navbar
+      {showPopup ? (
+        <AuthPopup togglePopup={togglePopup} />
+      ) : (
+        <></>
+      )}
+      <Header />
+      <Navigation />
+
+      {/* // fixed */}
+      <main className="bg-[#F5F5FA] w-full h-screen flex flex-col relative z-[9]">
+        <Sliders />
+        <Promotion />
+        <FeatureCategory />
+        <ProductSuggest />
+      </main>
+
+      {/* <Header togglePopup={togglePopup} /> */}
+      {/* <Navbar
         data={category}
         newSettings={{
           speed: 0,
@@ -100,7 +136,7 @@ function App() {
         <PrimaryBanner />
         <ProductSuggest />
       </main>
-      <Footer />
+      <Footer /> */}
     </div>
   );
 }

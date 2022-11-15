@@ -15,15 +15,27 @@ const userApi = {
   refreshToken() {
     // send accessToken to server
     const url = "/auth/refresh";
-    const res = axiosClient.post(url, { withCredentials: true });
+    const res = axiosClient.post(url, {
+      withCredentials: true,
+    });
     return res;
   },
   async logout(headers, requestInterceptor) {
-    console.log("logout data in userApi file: ", headers);
+    console.log(
+      "logout data in userApi file: ",
+      headers,
+    );
     // send accessToken to server
     const url = `/auth/logout`;
-    const res = requestInterceptor.post(url, {}, headers);
-    console.log("response data in userApi file: ", res);
+    const res = requestInterceptor.post(
+      url,
+      {},
+      headers,
+    );
+    console.log(
+      "response data in userApi file: ",
+      res,
+    );
     return res;
   },
 };

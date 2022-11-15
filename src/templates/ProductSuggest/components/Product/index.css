@@ -1,0 +1,102 @@
+.product__item {
+    background-color: #fff;
+    max-width: 200px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.product__item:hover {
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+
+.product__item .thumbnail {
+    max-width: 200px;
+    max-height: 200px;
+    width: 200px;
+    height: 200px;
+    background-color: #fff;
+}
+
+.product__item .thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+.product__item .infos {
+    margin: 0.7rem 0;
+    padding: 0 0.7rem;
+}
+.product__item .infos .product__name {
+    font-size: 12px;
+    color: #38383D;
+    line-height: 1rem;
+    min-height: 2rem;
+}
+.product__item .infos .product__rates {
+    line-height: 12px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 0.2rem;
+    min-height: 12px;
+    
+}
+.product__item .infos .product__rates span{
+    line-height: 12px;
+    font-size: 12px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-right: 0.1rem;
+    color: #808089;
+}
+.product__item .infos .product__rates span:nth-child(2) {
+    justify-content: flex-start;
+    align-items: center;
+    margin-right: 0.3rem;
+}
+.product__item .infos .product__rates span:nth-child(3) {
+    font-size: 12px;
+    margin-right: 0.3rem;
+}
+.product__item .infos .product__rates span:last-child {
+    font-size: 11px;
+}
+
+.product__item .infos .product__price {
+    margin-top: 1rem;
+    line-height: 1rem;
+    min-height: 1rem;
+    padding-bottom: 0.5rem;
+}
+.product__item .infos .product__price span {
+    font-weight: bold;
+    font-size: 1rem;
+}
+.product__item .infos .product__price span.sale__price {
+    color: #FE4B57;
+}
+.product__item .infos .product__price span.root__price {
+    color: #38383D;
+}
+
+.product__item .infos .product__price span:nth-child(2) {
+    color: #FE4B57;
+    font-size: 12px;
+    margin-left: 5px;
+}
+.product__item .infos .badge__ship {
+    min-height: 1rem;
+    margin-top: 0.5rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.product__item .infos .badge__ship span {
+    border: 0.5px solid #1A94FF;
+    border-radius: 0.1rem;
+    font-size: 10px;
+    padding: 0.2rem;
+    color: #1A94FF;
+}
