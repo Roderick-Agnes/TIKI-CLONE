@@ -44,7 +44,7 @@ function FeatureCategory(props) {
 
   return (
     <section className="flex justify-center items-center w-full">
-      <div className="flex flex-col justify-center items-center w-full p-[15px] bg-white rounded">
+      <div className="flex flex-col justify-center items-center w-full px-[0.5rem] py-[1rem] bg-white rounded">
         <div className="w-full flex justify-center items-center">
           <span className="w-full text-left text-[20px] leading-[28px] text-[#242424]">
             Danh mục sản phẩm

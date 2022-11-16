@@ -50,10 +50,10 @@ function Promotion(props) {
     })();
   }, []);
   return (
-    <section className="inline-block z-[9]">
+    <section className="inline-block z-[9] w-full">
       <div className="flex justify-between items-center w-full h-[17rem]">
         <div className="w-full h-full bg-white rounded">
-          <div className="flex justify-between items-center w-full pt-[1rem] pb-[0.5rem] px-[1rem]">
+          <div className="flex justify-between items-center w-full pt-[1rem] pb-[0.5rem] px-[0.5rem]">
             <div className="flex justify-start items-center w-full">
               <div className="flex flex-row gap-[0.5rem]">
                 <div className="flex flex-row justify-center items-center">

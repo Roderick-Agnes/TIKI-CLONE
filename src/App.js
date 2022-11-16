@@ -118,6 +118,7 @@ function App() {
         <FeatureCategory />
         <ProductSuggest />
       </main>
+      <Footer />
 
       {/* <Header togglePopup={togglePopup} /> */}
       {/* <Navbar

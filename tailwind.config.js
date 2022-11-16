@@ -1,11 +1,17 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  corePlugins: {
+    preflight: false,
+  },
   important: true,
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     screens: {
-      tablet: "640px",
-      // => @media (min-width: 640px) { ... }
+      mobile: { min: "390px", max: "480px" },
+      // => @media (min-width: 390px and max-width: 480px) { ... }
+
+      tablet: "481px",
+      // => @media (min-width: 481px) { ... }
 
       laptop: "1024px",
       // => @media (min-width: 1024px) { ... }
@@ -22,6 +28,9 @@ module.exports = {
       boxShadow: {
         navigation:
           "rgb(0 0 0 / 50%) 0px -6px 6px -6px",
+        button:
+          "rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px",
+        item: "0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)",
       },
       shadow: {
         left: "-10px 0px 3px 0px #aaa",
