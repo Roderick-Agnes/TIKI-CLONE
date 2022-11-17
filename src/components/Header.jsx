@@ -21,14 +21,29 @@ import { logoutAction } from "../redux/custom/authRequest";
 import { axiosRequestInterceptor } from "../api/axiosClient";
 import {
   Badge,
+  IconButton,
   ThemeProvider,
 } from "@mui/material";
 import { theme } from "../utils/theme";
+import { styled } from "@mui/material/styles";
 
 const style = {
   width: "100%",
   bgcolor: "background.paper",
 };
+
+const StyledBadge = styled(Badge)(
+  ({ theme }) => ({
+    "& .MuiBadge-badge": {
+      right: 0,
+      top: 0,
+      // border: `2px solid ${theme.palette.background.paper}`,
+      background: "orange",
+      padding: "0 4px",
+      textColor: "white",
+    },
+  }),
+);
 
 const Header = (props) => {
   const { togglePopup } = props;
@@ -183,7 +198,7 @@ const Header = (props) => {
                     <Badge
                       badgeContent={4}
                       color="yellow"
-                      className="mt-[5px] text-black h-1/2"
+                      className="mt-[5px] text-white h-1/2"
                     >
                       <FiShoppingCart
                         color={"#fff"}
@@ -191,6 +206,7 @@ const Header = (props) => {
                       />
                     </Badge>
                   </ThemeProvider>
+
                   <span className="text-white text-xs font-extralight ml-[5px] mt-[3px] h-[170%]  flex items-end">
                     Giỏ hàng
                   </span>
