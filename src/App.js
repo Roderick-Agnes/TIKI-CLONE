@@ -1,7 +1,4 @@
-import {
-  useEffect,
-  useState,
-} from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import "./App.css";
 import Navbar from "./components/Navbar";
@@ -107,7 +104,7 @@ function App() {
       ) : (
         <></>
       )}
-      <Header />
+      <Header togglePopup={togglePopup} />
       <Navigation />
 
       {/* // fixed */}

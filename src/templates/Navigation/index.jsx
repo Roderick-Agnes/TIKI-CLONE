@@ -5,9 +5,8 @@ import {
 } from "react-icons/ai";
 import { BsChatDots } from "react-icons/bs";
 import { RiAccountPinCircleLine } from "react-icons/ri";
+
 const Navigation = (props) => {
-  // filter: grayscale(100%);
-  //     -webkit-filter: grayscale(100%);
   return (
     <div className="tablet:hidden w-screen bg-white min-h-[1rem] fixed left-0 bottom-0 z-[10] shadow-navigation">
       <div className="flex flex-row justify-between items-center w-full h-full">
