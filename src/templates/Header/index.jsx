@@ -1,13 +1,25 @@
 import { FiShoppingCart } from "react-icons/fi";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { BiSearchAlt } from "react-icons/bi";
-import {
-  Badge,
-  ThemeProvider,
-} from "@mui/material";
-import { AiOutlineAppstore } from "react-icons/ai";
+import { Badge, IconButton } from "@mui/material";
 import { theme } from "../../utils/theme";
+import { AiOutlineAppstore } from "react-icons/ai";
 import Slider from "react-slick";
+
+import { styled } from "@mui/material/styles";
+
+const StyledBadge = styled(Badge)(
+  ({ theme }) => ({
+    "& .MuiBadge-badge": {
+      right: 0,
+      top: 0,
+      // border: `2px solid ${theme.palette.background.paper}`,
+      background: "orange",
+      padding: "0 4px",
+      textColor: "white",
+    },
+  }),
+);
 
 const Header = () => {
   const settings = {
@@ -41,20 +53,28 @@ const Header = () => {
               alt="tiki-logo"
             />
           </div>
-          <div className="flex flex-row justify-between items-center text-white  gap-[0.5rem]">
+          <div className="flex flex-row justify-between items-center text-white mr-1 gap-[0.1rem]">
             <div className="cursor-pointer">
-              <IoMdNotificationsOutline className="w-auto h-[2rem]" />
-            </div>
-            <div className="relative w-full cursor-pointer">
-              <ThemeProvider theme={theme}>
-                <Badge
-                  badgeContent={0}
-                  color="yellow"
+              <IconButton aria-label="cart">
+                <StyledBadge
+                  badgeContent={1}
+                  // color="secondary"
                   className=" text-white"
                 >
-                  <FiShoppingCart className="w-auto h-[1.7rem]" />
-                </Badge>
-              </ThemeProvider>
+                  <IoMdNotificationsOutline className="w-auto h-[2rem] text-white" />
+                </StyledBadge>
+              </IconButton>
+            </div>
+            <div className="relative cursor-pointer">
+              <IconButton aria-label="cart">
+                <StyledBadge
+                  badgeContent={1}
+                  // color="secondary"
+                  className=" text-white"
+                >
+                  <FiShoppingCart className="w-auto h-[1.85rem] text-white" />
+                </StyledBadge>
+              </IconButton>
             </div>
           </div>
         </div>
@@ -71,7 +91,7 @@ const Header = () => {
             </span>
             <input
               type="text"
-              className="placeholder:italic placeholder:text-slate-400 block w-full outline-none border-none rounded-sm pl-[2.2rem] pr-2 py-2 shadow-md  focus:text-slate-600"
+              className="placeholder:italic placeholder:text-slate-400 block w-full h-10 leading-10 text-[15px] outline-none border-none rounded-sm pl-[2.2rem] pr-2 py-2 shadow-md  focus:text-slate-600"
               placeholder="Bạn cần tìm gì ?"
               name="search"
             />

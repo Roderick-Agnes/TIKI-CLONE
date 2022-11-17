@@ -183,7 +183,7 @@ const Header = (props) => {
                     <Badge
                       badgeContent={4}
                       color="yellow"
-                      className="mt-[5px] text-white h-1/2"
+                      className="mt-[5px] text-black h-1/2"
                     >
                       <FiShoppingCart
                         color={"#fff"}
