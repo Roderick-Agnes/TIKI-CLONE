@@ -2,7 +2,7 @@ import { sliceTitleShort } from "../../../../utils/sliceTitleShort";
 import { AiFillStar } from "react-icons/ai";
 import "./index.css";
 import { useEffect } from "react";
-import { formatPrice } from "../../../../utils/priceFormat";
+import { formatPrice } from "../../../../utils/formatPrice";
 
 const Product = (props) => {
   const { info } = props;
