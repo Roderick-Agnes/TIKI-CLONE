@@ -62,35 +62,39 @@ const Sliders = () => {
   }, []);
 
   return (
-    <div className="flex flex-col gap-2 z-[9]  bg-blue pb-[0.5rem] h-fit">
+    <section className="flex flex-col tablet:flex-row w-full gap-2 z-[9]  bg-blue pb-[0.5rem] h-fit laptop:pb-0 laptop:mt-[15px] laptop:max-w-[73.75rem] laptop:bg-[#f5f5fa] tablet:overflow-hidden">
       {/* slider */}
-      <div className="w-full px-[0.5rem]">
+      <div className="w-full px-[0.7rem] laptop:px-0 laptop:w-[785px] ">
         <Slider {...settings}>
           {banners.map((item, index) => {
             return (
-              <img
+              <div
                 key={index}
-                className="rounded-md object-contain w-full h-full"
-                src={item.image_url}
-                alt={
-                  item.title
-                    ? item.title
-                    : item.thumbnail
-                }
-              />
+                className="laptop:w-[785px] w-fit"
+              >
+                <img
+                  className="rounded-md max-w-full max-h-full object-contain"
+                  src={item.image_url}
+                  alt={
+                    item.title
+                      ? item.title
+                      : item.thumbnail
+                  }
+                />
+              </div>
             );
           })}
         </Slider>
       </div>
       {/* god banner */}
-      <div className="rounded-md px-[0.5rem]">
+      <div className="rounded-md px-[0.7rem] laptop:px-0 ">
         <img
           alt={godBanner.title}
           src={godBanner.image_url}
-          className=" rounded-md object-cover w-full"
+          className=" rounded-md w-full object-cover laptop:max-h-[260px] laptop:max-w-[387px]"
         />
       </div>
-    </div>
+    </section>
   );
 };
 

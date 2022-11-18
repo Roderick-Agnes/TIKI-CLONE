@@ -21,7 +21,7 @@
     outline: none;
     white-space: nowrap;
     flex-direction: column;
-    padding: 12px 0;
+    padding-top: 12px;
     color: #fff;
 }
 .deal-item:hover {

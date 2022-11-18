@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import "./App.css";
 import Navbar from "./components/Navbar";
-import Promotion from "./features/Promotion";
+
 import FeatureCategory from "./features/FeatureCategory";
 import PrimaryBanner from "./features/PrimaryBanner";
 import AuthPopup from "./features/AuthPopup";
@@ -20,6 +20,7 @@ import Navigation from "./templates/Navigation";
 import Header from "./templates/Header";
 import Sliders from "./templates/Sliders";
 import ProductSuggest from "./templates/ProductSuggest";
+import Promotion from "./templates/Promotion";
 
 const override = {
   position: "fixed",
@@ -108,7 +109,7 @@ function App() {
       <Navigation />
 
       {/* // fixed */}
-      <main className="bg-[#F5F5FA] w-full h-screen flex flex-col relative z-[9]">
+      <main className="bg-[#F5F5FA] w-full flex flex-col relative z-[9] laptop:items-center laptop:justify-center">
         <Sliders />
         <Promotion />
         <FeatureCategory />

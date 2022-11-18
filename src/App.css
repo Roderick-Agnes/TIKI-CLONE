@@ -16,11 +16,14 @@
   display: flex !important;
   margin-left: auto;
   margin-right: auto;
+
 }
  .slick-slide > div {
-  width: fit-content !important;
+  /* width: fit-content !important; */
   /* margin-right: 1rem; */
+  
 }
+
 main {
   display: grid;
   gap: 15px;

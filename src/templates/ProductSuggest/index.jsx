@@ -105,7 +105,7 @@ const ProductSuggest = () => {
 
   return (
     <section className="flex flex-col justify-center items-center w-full">
-      <div className="sticky top-0 bg-[#f5f5fa]  w-full">
+      <div className="sticky top-0 bg-[#f5f5fa]  w-full laptop:max-w-[73.75rem]">
         <div className="flex flex-col justify-center items-center w-full m-0 p-[0.5rem] bg-white rounded">
           <span className="w-full text-left text-[20px] leading-7 text-[#242424]">
             Gợi Ý Hôm Nay
@@ -141,7 +141,7 @@ const ProductSuggest = () => {
           </div>
         </div>
       </div>
-      <div className="pb-[4.4rem] tablet:pb-0 flex flex-col justify-center items-center w-full bg-transparent rounded">
+      <div className="pb-[4.4rem] tablet:pb-0 flex flex-col justify-center items-center w-full bg-transparent rounded laptop:max-w-[73.75rem]">
         <div className="max-w-fit  bg-[#f5f5fa] flex justify-center  flex-wrap gap-[0.5rem] overflow-hidden">
           {
             // THE PRODUCT LIST WILL BE RENDERED BASED COLLECTION TAB HAS BEEN CHOSE
