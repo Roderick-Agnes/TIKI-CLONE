@@ -66,24 +66,67 @@ const Sliders = () => {
       {/* slider */}
       <div className="w-full px-[0.7rem] laptop:px-0 laptop:w-[785px] ">
         <Slider {...settings}>
-          {banners.map((item, index) => {
-            return (
-              <div
-                key={index}
-                className="laptop:w-[785px] w-fit"
-              >
-                <img
-                  className="rounded-md max-w-full max-h-full object-contain"
-                  src={item.image_url}
-                  alt={
-                    item.title
-                      ? item.title
-                      : item.thumbnail
-                  }
-                />
-              </div>
-            );
-          })}
+          {/* {banners.map((item, index) => {
+            return ( */}
+          <div
+            // key={index}
+            className="mobile:max-h-full mobile:max-w-full w-full laptop:w-[785px]"
+          >
+            <img
+              className="rounded-md max-w-full h-auto  outline-none  object-cover"
+              src={
+                "https://salt.tikicdn.com/cache/w1080/ts/banner/f4/05/a2/cba7953ddcfb1a8bef099d855f59179f.png"
+              }
+              alt={"th"}
+            />
+          </div>
+          <div
+            // key={index}
+            className="mobile:max-h-full mobile:max-w-full w-full laptop:w-[785px]"
+          >
+            <img
+              className="rounded-md max-w-full h-auto  outline-none  object-cover"
+              src={
+                "https://salt.tikicdn.com/cache/w1080/ts/banner/d3/84/12/522dde7a88f9b541ea31c7cdf94ced73.png"
+              }
+              alt={"th"}
+            />
+          </div>
+          <div
+            // key={index}
+            className="mobile:max-h-full mobile:max-w-full w-full laptop:w-[785px]"
+          >
+            <img
+              className="rounded-md max-w-full h-auto  outline-none  object-cover"
+              src={
+                "https://salt.tikicdn.com/cache/w1080/ts/banner/97/f7/c1/1ffb06ad3916755e1ab9f12b4d972b79.png"
+              }
+              alt={"th"}
+            />
+          </div>
+          {/* <div
+            // key={index}
+            className="mobile:max-h-full mobile:max-w-full w-full laptop:w-[785px] object-cover"
+          >
+            <img
+              className="rounded-md max-w-full h-auto object-cover"
+              src={
+                "https://salt.tikicdn.com/cache/w1080/ts/banner/f4/05/a2/cba7953ddcfb1a8bef099d855f59179f.png"
+              }
+              alt={"th"}
+            />
+            {/* <img
+            className="rounded-md max-w-full h-auto object-cover"
+            src={item.image_url || "https://salt.tikicdn.com/cache/w1080/ts/banner/f4/05/a2/cba7953ddcfb1a8bef099d855f59179f.png"}
+            alt={
+              item.title
+                ? item.title
+                : item.thumbnail
+            }
+          /> 
+          </div> 
+           );
+          })} */}
         </Slider>
       </div>
       {/* god banner */}
