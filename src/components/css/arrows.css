@@ -19,10 +19,12 @@
     background-color: transparent !important;
     z-index: 0;
     overflow: 0.3px;
+    outline: none;
 }
 .arrow-prev {
     position: absolute;
     left: 0 !important;
+    /* top: 24px !important; */
     /* display: flex !important;
     justify-content: center !important;
     align-items: center !important; */

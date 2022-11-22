@@ -107,7 +107,7 @@ const Header = (props) => {
 
   return (
     <header className="bg-blue w-full py-[2rem] px-[0.7rem] top-0 sticky z-10 laptop:py-0 laptop:px-0 laptop:flex laptop:flex-col laptop:items-center laptop:relative ">
-      <div className="laptop:flex laptop:justify-between  laptop:gap-16 laptop:py-[15px] laptop:px-0 max-w-full laptop:w-[77.5rem] w-full">
+      <div className="laptop:flex laptop:justify-between  laptop:gap-16 laptop:py-[15px] laptop:px-0 max-w-full laptop:w-[73.75rem] w-full">
         <div className="flex flex-col laptop:flex-row laptop:w-full laptop:justify-between">
           <div className="flex laptop:block flex-row justify-between pb-2 laptop:pb-0 w-full laptop:w-fit">
             {/* <div className="w-auto h-[2rem]"> */}

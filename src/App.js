@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "./App.css";
-import Navbar from "./components/Navbar";
+import { Route, Routes } from "react-router-dom";
 
 import FeatureCategory from "./features/FeatureCategory";
 import PrimaryBanner from "./features/PrimaryBanner";
@@ -21,6 +21,8 @@ import Header from "./templates/Header";
 import Sliders from "./templates/Sliders";
 import ProductSuggest from "./templates/ProductSuggest";
 import Promotion from "./templates/Promotion";
+import Home from "./pages/Home";
+import Detail from "./pages/Detail";
 
 const override = {
   position: "fixed",
@@ -108,13 +110,14 @@ function App() {
       <Header togglePopup={togglePopup} />
       <Navigation />
 
-      {/* // fixed */}
-      <main className="bg-[#F5F5FA] w-full flex flex-col relative z-[9] laptop:items-center laptop:justify-center">
-        <Sliders />
-        <Promotion />
-        <FeatureCategory />
-        <ProductSuggest />
-      </main>
+      {/* body */}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route
+          path="/product/:id"
+          element={<Detail />}
+        />
+      </Routes>
       <Footer />
 
       {/* <Header togglePopup={togglePopup} /> */}
