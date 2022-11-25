@@ -65,12 +65,12 @@ function Promotion(props) {
                     src="https://frontend.tikicdn.com/_desktop-next/static/img/dealFlashIcon.svg"
                     alt="icon-flash"
                     width={21}
-                    className="hidden sm:block"
+                    className="hidden laptop:block animate-scale"
                   />
                   <img
                     src="https://frontend.tikicdn.com/_desktop-next/static/img/homnay.svg"
                     alt="flash-deal"
-                    className="hidden sm:block"
+                    className="hidden laptop:block"
                   />
                 </div>
                 <CountdownTimer

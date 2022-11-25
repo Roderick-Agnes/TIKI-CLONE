@@ -8,13 +8,13 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Roboto', 'Helvetica', 'sans-serif';
+    font-family: Roboto,Helvetica,Arial,sans-serif;
     -moz-box-sizing: border-box;
 }
 
 body{
     background-color: #F5F5FA;
-    font-family: 'Roboto', 'Helvetica', 'sans-serif';
+    
     position: relative;
 }
 /* Poppins */

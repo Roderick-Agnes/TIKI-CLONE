@@ -45,8 +45,25 @@ module.exports = {
           "rgb(0 0 0 / 18%) 0px 6px 12px 0px",
       },
       colors: {
+        red: "#ff424e",
         blue: "#1A94FF",
         "dark-blue": "#0B74E5",
+        main: "#242424",
+      },
+      keyframes: {
+        scale: {
+          "0%, 100%": {
+            transform: "scale(1)",
+            opacity: "1",
+          },
+          "50%": {
+            transform: "scale(1.25)",
+            opacity: "0.5",
+          },
+        },
+      },
+      animation: {
+        scale: "scale 0.8s ease-in-out infinite",
       },
     },
   },
