@@ -21,7 +21,7 @@ const Product = (props) => {
   return (
     <>
       <div className="bg-white max-w-[175px] mobile:max-w-[190px] tablet:max-w-[190px]  rounded cursor-pointer hover:shadow-item">
-        <div className=" bg-white">
+        <div className=" bg-white max-w-[190px] max-h-[190px]">
           {/* max-w-[190px] max-h-[190px] w-[190px] h-[190px] */}
           <img
             src={thumbnails[0]}
@@ -49,13 +49,13 @@ const Product = (props) => {
             )}
 
             {rating_average > 0 &&
-              quantitySold > 0 && (
+              quantitySold?.value > 0 && (
                 <>
                   <span className="mr-[0.3rem] leading-3 text-[12px] flex justify-start items-center text-[#808089]">
                     |
                   </span>
                   <span className="leading-3 text-[11px] flex justify-start items-center mr-[0.1rem] text-[#808089]">
-                    Đã bán {quantitySold}
+                    Đã bán {quantitySold?.value}
                   </span>
                 </>
               )}
