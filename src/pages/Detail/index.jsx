@@ -13,6 +13,8 @@ import NewIcon from "../../assets/icon/new-icon.gif";
 import { number } from "yup";
 import { useRef } from "react";
 import { useEffect } from "react";
+import productApi from "../../api/productApi";
+import { useParams } from "react-router-dom";
 
 const breadcrumbs = [
   "Trang chủ",
@@ -46,6 +48,8 @@ const Detail = () => {
   const [quantityBuy, setQuantityBuy] =
     useState(1);
 
+    const {id} = useParams();
+
   const handleIncreasing = () => {
     setQuantityBuy(quantityBuy + 1);
   };
@@ -59,11 +63,20 @@ const Detail = () => {
     setIndexActive(idx);
   };
 
+  useEffect(() => {
+    fetchProductData();
+  }, [])
+
+  const fetchProductData = async () => {
+    console.log("product id: " , id)
+    const product = await productApi.getProductById(id)
+  }
+
   return (
     <>
       {/* breadcrumb */}
       <div className="bg-[#F5F5FA] w-full flex flex-col relative z-[9] laptop:items-center laptop:justify-center">
-        <div className="w-full laptop:max-w-[73.75rem] laptop:bg-[#f5f5fa]">
+        <div className="w-full laptop:max-w-[73.75rem] laptop:bg-[#f5f5fa] px-4">
           <Breadcrumb titles={breadcrumbs} />
         </div>
       </div>
@@ -76,7 +89,7 @@ const Detail = () => {
                 src={
                   product.thumbnails[indexActive]
                 }
-                className="object-cover w-[444px] h-[444px]"
+                className="object-cover w-full laptop:w-[444px] laptop:h-[444px]"
                 alt={product.title}
               />
               <div className="flex flex-row justify-between pt-2">
@@ -88,7 +101,7 @@ const Detail = () => {
                           "thumbnail-product-" +
                           idx
                         }
-                        className="max-w-[64px] max-h-[64px] cursor-pointer"
+                        className={`max-w-[64px] max-h-[64px] cursor-pointer  ${idx > 4 ? "hidden tablet:flex" : ""}`}
                         onClick={() => {
                           handleShowImage(idx);
                         }}

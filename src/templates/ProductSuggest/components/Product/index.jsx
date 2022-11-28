@@ -3,11 +3,14 @@ import { AiFillStar } from "react-icons/ai";
 import "./index.css";
 import { useEffect } from "react";
 import { formatPrice } from "../../../../utils/formatPrice";
+import { useNavigate } from "react-router-dom";
 
 const Product = (props) => {
   const { info } = props;
+  const navigate = useNavigate();
   const {
     _id,
+    id,
     title,
     thumbnails,
     rating_average,
@@ -17,10 +20,18 @@ const Product = (props) => {
     discountRate,
     freeShip,
   } = info;
+
+  const getInfomation = (id) => {
+    navigate(`/product/${id}`);
+  }
+
   useEffect(() => {}, []);
+  
   return (
     <>
-      <div className="bg-white max-w-[175px] mobile:max-w-[190px] tablet:max-w-[190px]  rounded cursor-pointer hover:shadow-item">
+      <div className="bg-white max-w-[175px] mobile:max-w-[190px] tablet:max-w-[190px]  rounded cursor-pointer hover:shadow-item" onClick={() => {
+        getInfomation(id)
+      }}>
         <div className=" bg-white max-w-[190px] max-h-[190px]">
           {/* max-w-[190px] max-h-[190px] w-[190px] h-[190px] */}
           <img

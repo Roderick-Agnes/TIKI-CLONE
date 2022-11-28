@@ -27,25 +27,30 @@ import axiosClient from "./axiosClient";
 //     };
 //   },
 const productApi = {
-  getProducts(params) {
+  async getProducts(params) {
     const url = `/products/`;
-    return axiosClient.get(url);
+    const data = await axiosClient.get(url);
+    return data;
   },
-  getProductById(id) {
+  async getProductById(id) {
     const url = `/products/${id}`;
-    return axiosClient.get(url);
+    const data = await axiosClient.get(url);
+    return data;
   },
-  add(data) {
+  async add(product) {
     const url = "/products";
-    return axiosClient.post(url, data);
+    const data = await axiosClient.post(url, product);
+    return data;
   },
-  update(data) {
-    const url = `/products/${data._id}`;
-    return axiosClient.patch(url, data);
+  async update(product) {
+    const url = `/products/${product._id}`;
+    const data = await axiosClient.patch(url, product);
+    return data;
   },
-  remove(id) {
+  async remove(id) {
     const url = `/products/${id}`;
-    return axiosClient.delete(url);
+    const data = await axiosClient.delete(url);
+    return data;
   },
 };
 
