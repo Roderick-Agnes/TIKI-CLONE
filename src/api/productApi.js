@@ -33,7 +33,7 @@ const productApi = {
     return data;
   },
   async getProductById(id) {
-    const url = `/products/${id}`;
+    const url = `/products/find/${id}`;
     const data = await axiosClient.get(url);
     return data;
   },

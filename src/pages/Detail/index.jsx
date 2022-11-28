@@ -70,6 +70,7 @@ const Detail = () => {
   const fetchProductData = async () => {
     console.log("product id: " , id)
     const product = await productApi.getProductById(id)
+    console.log(product)
   }
 
   return (
