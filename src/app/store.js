@@ -1,5 +1,5 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import userReducer from "../redux/userSlice";
+import {userReducer, loaderReducer} from "../redux/index";
 import {
   persistStore,
   persistReducer,
@@ -19,7 +19,7 @@ const persistConfig = {
   whitelist: ["user"],
 };
 
-const rootReducer = combineReducers({ user: userReducer });
+const rootReducer = combineReducers({ user: userReducer, loader: loaderReducer });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({

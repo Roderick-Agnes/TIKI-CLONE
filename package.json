@@ -15,6 +15,7 @@
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
     "axios": "^0.27.2",
+    "emotion": "^11.0.0",
     "jwt-decode": "^3.1.2",
     "os-browserify": "^0.3.0",
     "query-string": "^7.1.1",
@@ -22,6 +23,7 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.39.1",
     "react-icons": "^4.6.0",
+    "react-query": "^3.39.2",
     "react-rating": "^2.0.5",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.4.3",
@@ -31,7 +33,6 @@
     "react-toastify": "^9.1.1",
     "redux-persist": "^6.0.0",
     "slick-carousel": "^1.8.1",
-    "styled-components": "^5.3.6",
     "web-vitals": "^2.1.0",
     "yup": "^0.32.11",
     "yup-password": "^0.2.2"

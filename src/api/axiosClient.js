@@ -6,7 +6,7 @@ import userApi from "./userApi";
 // http://localhost:5000
 let axiosClient = axios.create({
   baseURL:
-    "https://agnes-shop-api.herokuapp.com/api",
+    "http://localhost:5000/api",
   headers: {
     "Content-Type": "application/json",
   },

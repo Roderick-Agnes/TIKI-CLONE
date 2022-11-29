@@ -15,6 +15,9 @@ import { useRef } from "react";
 import { useEffect } from "react";
 import productApi from "../../api/productApi";
 import { useParams } from "react-router-dom";
+import { useQuery } from "react-query";
+import { useDispatch } from "react-redux";
+import {onLoading, offLoading} from "../../redux/custom/loader";
 
 const breadcrumbs = [
   "Trang chủ",
@@ -44,6 +47,15 @@ const product = {
 const Detail = () => {
   const [indexActive, setIndexActive] =
     useState(0);
+  const [productData, setProductData] = useState({})
+  const dispatch = useDispatch();
+
+  const fetchProductData = async () => {
+    const product = await productApi.getProductById(id)
+    return product;
+  }
+
+  const prod = useQuery(['product'], fetchProductData)
 
   const [quantityBuy, setQuantityBuy] =
     useState(1);
@@ -64,14 +76,16 @@ const Detail = () => {
   };
 
   useEffect(() => {
-    fetchProductData();
-  }, [])
+    if(prod.isLoading){
+      onLoading(dispatch);
+    }
+    if (prod.isFetched) {
+      offLoading(dispatch);
+      setProductData(prod.data?.data)
+    }
+  }, [prod.status])
 
-  const fetchProductData = async () => {
-    console.log("product id: " , id)
-    const product = await productApi.getProductById(id)
-    console.log(product)
-  }
+  
 
   return (
     <>
@@ -88,13 +102,13 @@ const Detail = () => {
             <div className="w-full p-4 bg-[#fff] rounded-l-md laptop:w-[40%]">
               <img
                 src={
-                  product.thumbnails[indexActive]
+                  productData.thumbnails[indexActive]
                 }
                 className="object-cover w-full laptop:w-[444px] laptop:h-[444px]"
-                alt={product.title}
+                alt={productData.title}
               />
               <div className="flex flex-row justify-between pt-2">
-                {product?.thumbnails.map(
+                {productData?.thumbnails.map(
                   (thumbnail, idx) => {
                     return (
                       <div
@@ -131,7 +145,7 @@ const Detail = () => {
               {/* Brand name of product */}
               <span className="text-[13px] text-main">
                 Thương hiệu:{" "}
-                {product.brand_name.map(
+                {productData.brand_name.map(
                   (brand, idx) => {
                     return (
                       <span
@@ -146,14 +160,14 @@ const Detail = () => {
               </span>
               {/* Product name */}
               <h1 className="text-[#504d4d] text-2xl font-light break-words py-2">
-                {product.title}
+                {productData.title}
               </h1>
               {/* Avg rating */}
               <div className="text-sm text-[#787878] font-light flex items-center space-x-2 pb-2">
                 <Rating
                   className="space-x-1 text-base leading-4 text-[#fdd940]"
                   placeholderRating={
-                    product.rating_average
+                    productData.rating_average
                   }
                   placeholderSymbol={
                     <BsStarFill className="" />
@@ -164,12 +178,12 @@ const Detail = () => {
                   fractions={2}
                 />
                 <span>
-                  ({product.review_count} đánh
+                  ({productData.review_count} đánh
                   giá)
                 </span>
                 <span> | </span>
                 <span>
-                  Đã bán {product.quantitySold}
+                  Đã bán {productData.quantitySold}
                 </span>
               </div>
               {/* Prices infomation of product */}
@@ -177,17 +191,17 @@ const Detail = () => {
                 <div className="flex space-x-2 pb-2">
                   <div className="text-red text-[32px] font-semibold">
                     {formatPrice(
-                      product.salePrice,
+                      productData.salePrice,
                     )}
                   </div>
                   <div className="flex flex-row items-end text-sm space-x-2 font-semibold">
                     <span className="line-through text-[#808089] font-medium">
                       {formatPrice(
-                        product.rootPrice,
+                        productData.rootPrice,
                       )}
                     </span>
                     <span className="text-red">
-                      {-product.discountRate}%
+                      {-productData.discountRate}%
                     </span>
                   </div>
                 </div>
