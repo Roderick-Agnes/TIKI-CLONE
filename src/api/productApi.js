@@ -39,12 +39,18 @@ const productApi = {
   },
   async add(product) {
     const url = "/products";
-    const data = await axiosClient.post(url, product);
+    const data = await axiosClient.post(
+      url,
+      product,
+    );
     return data;
   },
   async update(product) {
     const url = `/products/${product._id}`;
-    const data = await axiosClient.patch(url, product);
+    const data = await axiosClient.patch(
+      url,
+      product,
+    );
     return data;
   },
   async remove(id) {

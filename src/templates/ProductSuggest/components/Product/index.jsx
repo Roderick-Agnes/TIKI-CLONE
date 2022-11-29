@@ -23,15 +23,18 @@ const Product = (props) => {
 
   const getInfomation = (id) => {
     navigate(`/product/${id}`);
-  }
+  };
 
   useEffect(() => {}, []);
-  
+
   return (
     <>
-      <div className="bg-white max-w-[175px] mobile:max-w-[190px] tablet:max-w-[190px]  rounded cursor-pointer hover:shadow-item" onClick={() => {
-        getInfomation(id)
-      }}>
+      <div
+        className="bg-white max-w-[175px] mobile:max-w-[190px] tablet:max-w-[190px]  rounded cursor-pointer hover:shadow-item"
+        onClick={() => {
+          getInfomation(id);
+        }}
+      >
         <div className=" bg-white max-w-[190px] max-h-[190px]">
           {/* max-w-[190px] max-h-[190px] w-[190px] h-[190px] */}
           <img

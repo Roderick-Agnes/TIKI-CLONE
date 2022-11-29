@@ -6,9 +6,12 @@ import userApi from "./userApi";
 // http://localhost:5000
 let axiosClient = axios.create({
   baseURL:
-    "http://localhost:5000/api",
+    "https://agnes-shop-api.herokuapp.com/api",
   headers: {
     "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*",
+    // "Access-Control-Allow-Methods":
+    //   "GET,PUT,POST,DELETE,PATCH,OPTIONS",
   },
   withCredentials: true,
 });

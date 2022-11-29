@@ -1,5 +1,14 @@
 # disable all script
+
 ### `yarn config set ignore-scripts true`
+
+# You can either commit your changes before you do the merge, or you stash them:
+
+### `git stash save`
+
+### `git merge origin/master`
+
+### `git stash pop`
 
 # Getting Started with Create React App
 

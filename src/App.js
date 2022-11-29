@@ -43,6 +43,9 @@ function App() {
   const userStore = useSelector(
     (state) => state.user,
   );
+  const loader = useSelector(
+    (state) => state.loader,
+  );
 
   const togglePopup = () => {
     setShowPopup(!showPopup);
@@ -71,7 +74,9 @@ function App() {
       className="w-full max-w-full h-screen bg-blue"
       style={{
         position: `${
-          showPopup || userStore.isLoading
+          showPopup ||
+          userStore.isLoading ||
+          loader.isLoading
             ? "fixed"
             : "relative"
         }`,
@@ -89,18 +94,19 @@ function App() {
         pauseOnHover
         theme="light"
       />
-      {userStore.isLoading && (
-        <span className="spinner overlay">
-          <SyncLoader
-            color="#1A94FF"
-            loading={true}
-            cssOverride={override}
-            size={15}
-            aria-label="Loading Spinner"
-            data-testid="loader"
-          />
-        </span>
-      )}
+      {userStore.isLoading ||
+        (loader.isLoading && (
+          <span className="spinner overlay">
+            <SyncLoader
+              color="#1A94FF"
+              loading={true}
+              cssOverride={override}
+              size={15}
+              aria-label="Loading Spinner"
+              data-testid="loader"
+            />
+          </span>
+        ))}
 
       {showPopup ? (
         <AuthPopup togglePopup={togglePopup} />

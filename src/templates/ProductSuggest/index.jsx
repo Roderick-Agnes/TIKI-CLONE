@@ -141,7 +141,7 @@ const ProductSuggest = () => {
           </div>
         </div>
       </div>
-      <div className="pb-[4.4rem] tablet:pb-0 flex flex-col justify-center items-center w-full bg-transparent rounded laptop:max-w-[73.75rem]">
+      <div className="pb-[4rem] tablet:pb-0 flex flex-col justify-center items-center w-full bg-transparent rounded laptop:max-w-[73.75rem]">
         <div className="max-w-fit  bg-[#f5f5fa] flex justify-center  flex-wrap gap-[0.5rem] overflow-hidden">
           {
             // THE PRODUCT LIST WILL BE RENDERED BASED COLLECTION TAB HAS BEEN CHOSE

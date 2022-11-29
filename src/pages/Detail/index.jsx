@@ -16,51 +16,54 @@ import { useEffect } from "react";
 import productApi from "../../api/productApi";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
-import { useDispatch } from "react-redux";
-import {onLoading, offLoading} from "../../redux/custom/loader";
+import {
+  useDispatch,
+  useSelector,
+} from "react-redux";
+import {
+  onLoading,
+  offLoading,
+} from "../../redux/custom/loader";
+import { memo } from "react";
+import { useCallback } from "react";
+import { htmlFrom } from "../../utils/validateHtmlString";
+import "./index.css";
 
 const breadcrumbs = [
   "Trang chủ",
   "Điện thoại Smartphone",
   "Phone name",
 ];
-const product = {
-  brand_name: ["Tecno"],
-  title:
-    "Điện thoại Gaming Tecno POVA 4 PRO 8GB/128GB - Media Tek G99 | 6000 mAh | Sạc nhanh 45W - Hàng Chính Hãng",
-  thumbnails: [
-    "https://salt.tikicdn.com/cache/750x750/ts/product/b2/2c/44/caa24bf38721f9b9ea0e10ad8ee9e35b.png",
-    "https://salt.tikicdn.com/cache/750x750/ts/product/e7/8b/47/9e24b1b1e277287123a08c4c084ce8dc.png",
-    "https://salt.tikicdn.com/cache/750x750/ts/product/08/3e/1d/d0d35e6f160a7c5f9d24b6efa109d5a2.png",
-    "https://salt.tikicdn.com/cache/750x750/ts/product/13/40/43/fec58606a6335d2432ed2f916e7d3d47.png",
-    "https://salt.tikicdn.com/cache/750x750/ts/product/a8/c5/1c/a02dad9166fc2262b755b8e75ba6ffc8.png",
-    "https://salt.tikicdn.com/cache/750x750/ts/product/a8/c5/1c/a02dad9166fc2262b755b8e75ba6ffc8.png",
-  ],
-  rating_average: 4.5,
-  review_count: 114,
-  quantitySold: 325,
-  rootPrice: 199000,
-  salePrice: 135000,
-  discountRate: 32,
-};
 
 const Detail = () => {
   const [indexActive, setIndexActive] =
     useState(0);
-  const [productData, setProductData] = useState({})
+  const [productData, setProductData] =
+    useState();
   const dispatch = useDispatch();
-
+  const { id } = useParams();
+  const loader = useSelector(
+    (state) => state.loader,
+  );
   const fetchProductData = async () => {
-    const product = await productApi.getProductById(id)
-    return product;
-  }
-
-  const prod = useQuery(['product'], fetchProductData)
+    onLoading(dispatch);
+    const product =
+      await productApi.getProductById(id);
+    if (product) {
+      console.log("product: ", product);
+      setProductData(product?.data);
+      offLoading(dispatch);
+    } else {
+      console.log("No product");
+      offLoading(dispatch);
+    }
+  };
+  useEffect(() => {
+    fetchProductData();
+  }, []);
 
   const [quantityBuy, setQuantityBuy] =
     useState(1);
-
-    const {id} = useParams();
 
   const handleIncreasing = () => {
     setQuantityBuy(quantityBuy + 1);
@@ -75,48 +78,34 @@ const Detail = () => {
     setIndexActive(idx);
   };
 
-  useEffect(() => {
-    if(prod.isLoading){
-      onLoading(dispatch);
-    }
-    if (prod.isFetched) {
-      offLoading(dispatch);
-      setProductData(prod.data?.data)
-    }
-  }, [prod.status])
-
-  
-
   return (
     <>
-      {/* breadcrumb */}
       <div className="bg-[#F5F5FA] w-full flex flex-col relative z-[9] laptop:items-center laptop:justify-center">
-        <div className="w-full laptop:max-w-[73.75rem] laptop:bg-[#f5f5fa] px-4">
+        <div className="w-full laptop:max-w-[73.75rem] laptop:bg-[#f5f5fa] pb-[4rem] tablet:pb-0">
           <Breadcrumb titles={breadcrumbs} />
-        </div>
-      </div>
-      <main className="bg-[#F5F5FA] w-full flex flex-col relative z-[9] laptop:items-center laptop:justify-center">
-        <div className="w-full laptop:max-w-[73.75rem] laptop:bg-[#f5f5fa]">
+
+          {/* product overview */}
           <div className="tablet:flex tablet:flex-row">
             {/* Left section - Product silder images */}
             <div className="w-full p-4 bg-[#fff] rounded-l-md laptop:w-[40%]">
               <img
                 src={
-                  productData.thumbnails[indexActive]
+                  productData?.thumbnails[
+                    indexActive
+                  ]
                 }
                 className="object-cover w-full laptop:w-[444px] laptop:h-[444px]"
-                alt={productData.title}
+                alt={productData?.title}
               />
-              <div className="flex flex-row justify-between pt-2">
+              <div className="flex flex-row justify-center space-x-3 pt-2 x-mobile:flex-wrap x-mobile:gap-3">
                 {productData?.thumbnails.map(
                   (thumbnail, idx) => {
                     return (
                       <div
-                        key={
-                          "thumbnail-product-" +
-                          idx
-                        }
-                        className={`max-w-[64px] max-h-[64px] cursor-pointer  ${idx > 4 ? "hidden tablet:flex" : ""}`}
+                        key={`thumbnail-product-${idx}`}
+                        className={`max-w-[64px] max-h-[64px]  ${
+                          idx > 4 ? "hidden" : ""
+                        } cursor-pointer `}
                         onClick={() => {
                           handleShowImage(idx);
                         }}
@@ -128,10 +117,7 @@ const Detail = () => {
                               : ""
                           }`}
                           src={thumbnail}
-                          alt={
-                            "thumbnail-product-" +
-                            idx
-                          }
+                          alt={`thumbnail-product-${idx}`}
                         />
                       </div>
                     );
@@ -145,11 +131,11 @@ const Detail = () => {
               {/* Brand name of product */}
               <span className="text-[13px] text-main">
                 Thương hiệu:{" "}
-                {productData.brand_name.map(
+                {productData?.brand_name.map(
                   (brand, idx) => {
                     return (
                       <span
-                        key={"brand-name-" + idx}
+                        key={`brand-name-${idx}`}
                         className="text-blue"
                       >
                         {brand}
@@ -160,14 +146,14 @@ const Detail = () => {
               </span>
               {/* Product name */}
               <h1 className="text-[#504d4d] text-2xl font-light break-words py-2">
-                {productData.title}
+                {productData?.title}
               </h1>
               {/* Avg rating */}
               <div className="text-sm text-[#787878] font-light flex items-center space-x-2 pb-2">
                 <Rating
                   className="space-x-1 text-base leading-4 text-[#fdd940]"
                   placeholderRating={
-                    productData.rating_average
+                    productData?.rating_average
                   }
                   placeholderSymbol={
                     <BsStarFill className="" />
@@ -178,30 +164,58 @@ const Detail = () => {
                   fractions={2}
                 />
                 <span>
-                  ({productData.review_count} đánh
-                  giá)
+                  ({productData?.review_count}{" "}
+                  đánh giá)
                 </span>
-                <span> | </span>
-                <span>
-                  Đã bán {productData.quantitySold}
-                </span>
+
+                {productData?.quantitySold && (
+                  <>
+                    <span> | </span>
+                    <span>
+                      Đã bán{" "}
+                      {
+                        productData?.quantitySold
+                          .value
+                      }
+                    </span>
+                  </>
+                )}
               </div>
               {/* Prices infomation of product */}
               <div className=" bg-[#fafafa] rounded p-4">
                 <div className="flex space-x-2 pb-2">
-                  <div className="text-red text-[32px] font-semibold">
+                  <div
+                    className={`${
+                      productData?.discountRate >
+                      0
+                        ? "text-red"
+                        : "text-[#38383d]"
+                    } text-[32px] font-semibold`}
+                  >
                     {formatPrice(
-                      productData.salePrice,
+                      parseInt(
+                        productData?.salePrice,
+                      ),
                     )}
                   </div>
-                  <div className="flex flex-row items-end text-sm space-x-2 font-semibold">
+                  <div
+                    className={` ${
+                      productData?.discountRate ===
+                      0
+                        ? "hidden "
+                        : "flex "
+                    } flex-row items-end text-sm space-x-2 font-semibold `}
+                  >
                     <span className="line-through text-[#808089] font-medium">
                       {formatPrice(
-                        productData.rootPrice,
+                        parseInt(
+                          productData?.rootPrice,
+                        ),
                       )}
                     </span>
                     <span className="text-red">
-                      {-productData.discountRate}%
+                      {-productData?.discountRate}
+                      %
                     </span>
                   </div>
                 </div>
@@ -264,8 +278,61 @@ const Detail = () => {
               </div>
             </div>
           </div>
+
+          {/* product infomation */}
+          <div className="bg-white px-4 py-4 my-4">
+            <div className=" text-[20px] text-[#333333]">
+              Thông tin sản phẩm
+            </div>
+            <div className="pt-2 product__infomation">
+              <table className="">
+                <tbody>
+                  {productData?.information &&
+                    productData?.information.map(
+                      (info, idx) => {
+                        return (
+                          <tr
+                            key={`row-${idx}`}
+                            className="text-[13px]"
+                          >
+                            <td className="w-[220px] text-[#2b2a2a]  font-semibold py-[10px] px-[15px] bg-[#efefef]">
+                              {info.name}
+                            </td>
+                            <td
+                              className={`py-[10px] px-[15px] text-[#242424] leading-5 ${
+                                idx % 2 > 0
+                                  ? " bg-[#fafafa]"
+                                  : ""
+                              }`}
+                            >
+                              {info.value &&
+                                htmlFrom(
+                                  info.value,
+                                )}
+                            </td>
+                          </tr>
+                        );
+                      },
+                    )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* product description */}
+          <div className="bg-white px-4 py-4 my-4 x-mobile:mb-0 mobile:mb-0">
+            <div className=" text-[20px] text-[#333333]">
+              Mô tả sản phẩm
+            </div>
+            <div
+              className="pt-2 product__description"
+              dangerouslySetInnerHTML={{
+                __html: productData?.description,
+              }}
+            ></div>
+          </div>
         </div>
-      </main>
+      </div>
     </>
   );
 };

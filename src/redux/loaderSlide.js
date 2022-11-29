@@ -11,11 +11,10 @@ const loaderSlice = createSlice({
     },
     turnOffLoader: (state, action) => {
       state.isLoading = false;
-    }}
+    },
+  },
 });
 const { actions, reducer } = loaderSlice;
-export const {
-    turnOnLoader,
-    turnOffLoader,
-} = actions;
+export const { turnOnLoader, turnOffLoader } =
+  actions;
 export default reducer;

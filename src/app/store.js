@@ -1,5 +1,11 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import {userReducer, loaderReducer} from "../redux/index";
+import {
+  combineReducers,
+  configureStore,
+} from "@reduxjs/toolkit";
+import {
+  userReducer,
+  loaderReducer,
+} from "../redux/index";
 import {
   persistStore,
   persistReducer,
@@ -17,17 +23,30 @@ const persistConfig = {
   version: 1,
   storage,
   whitelist: ["user"],
+  blacklist: ["loader"],
 };
 
-const rootReducer = combineReducers({ user: userReducer, loader: loaderReducer });
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+const rootReducer = combineReducers({
+  user: userReducer,
+  loader: loaderReducer,
+});
+const persistedReducer = persistReducer(
+  persistConfig,
+  rootReducer,
+);
 
 export const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        ignoredActions: [FLUSH, PAUSE, PERSIST, PURGE, REGISTER],
+        ignoredActions: [
+          FLUSH,
+          PAUSE,
+          PERSIST,
+          PURGE,
+          REGISTER,
+        ],
       },
     }),
 });
