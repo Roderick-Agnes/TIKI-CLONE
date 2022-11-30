@@ -32,6 +32,13 @@
     font-size: 14px;
     color: #242424 !important;
 }
+.product__description div {
+    width: 100% !important;
+}
+
+.product__description div img{
+    width: 100% !important;
+}
 
 @media screen and (max-width: 480px) { 
     .product__description p {

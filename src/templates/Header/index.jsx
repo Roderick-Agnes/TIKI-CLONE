@@ -1,3 +1,4 @@
+import {useState, useEffect} from "react";
 import { FiShoppingCart } from "react-icons/fi";
 import {
   IoMdNotificationsOutline,
@@ -21,7 +22,6 @@ import {
   useSelector,
 } from "react-redux";
 import { CiLogout } from "react-icons/ci";
-import { useState } from "react";
 import { logoutAction } from "../../redux/custom/authRequest";
 import { axiosRequestInterceptor } from "../../api/axiosClient";
 import List from "@mui/material/List";
@@ -30,6 +30,7 @@ import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
 
 import { styled } from "@mui/material/styles";
+import axios from "axios";
 
 const StyledBadge = styled(Badge)(
   ({ theme }) => ({
@@ -48,30 +49,33 @@ const style = {
   width: "100%",
   bgcolor: "background.paper",
 };
+const settings = {
+  dots: false,
+  infinite: false,
+  speed: 500,
+  slidesToShow: 4,
+  slidesToScroll: 4,
+  initialSlide: 0,
+  arrows: false,
+  responsive: [
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 3,
+      },
+    },
+  ],
+};
+
+const API_CATEGORY_URL =
+"https://api.tiki.vn/shopping/v2/widgets/home-category-tab-bar?trackity_id=0133075b-db6b-f905-4dbf-c62d0902c027";
 
 const Header = (props) => {
-  const settings = {
-    dots: false,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 4,
-    initialSlide: 0,
-    arrows: false,
-    responsive: [
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-        },
-      },
-    ],
-  };
-
   const { togglePopup } = props;
   const [showOptions, setShowOptions] =
     useState(false);
+    const [category, setCategory] = useState([]);
   const userInfo = useSelector(
     (state) => state?.user || null,
   );
@@ -82,6 +86,21 @@ const Header = (props) => {
   const toggleShowOptions = () => {
     setShowOptions(!showOptions);
   };
+
+useEffect(() => {
+  (async () => {
+    try {
+      //set category data to state
+      axios
+        .get(API_CATEGORY_URL)
+        .then((res) => {
+          setCategory(res.data.data);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  })();
+}, []);
 
   const handleLogout = async () => {
     const interceptor =

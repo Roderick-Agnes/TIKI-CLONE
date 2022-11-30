@@ -10,12 +10,10 @@ import {
 } from "react-icons/bs";
 import { BiMinus } from "react-icons/bi";
 import NewIcon from "../../assets/icon/new-icon.gif";
-import { number } from "yup";
-import { useRef } from "react";
 import { useEffect } from "react";
 import productApi from "../../api/productApi";
 import { useParams } from "react-router-dom";
-import { useQuery } from "react-query";
+
 import {
   useDispatch,
   useSelector,
@@ -24,22 +22,16 @@ import {
   onLoading,
   offLoading,
 } from "../../redux/custom/loader";
-import { memo } from "react";
-import { useCallback } from "react";
 import { htmlFrom } from "../../utils/validateHtmlString";
 import "./index.css";
 
-const breadcrumbs = [
-  "Trang chủ",
-  "Điện thoại Smartphone",
-  "Phone name",
-];
 
 const Detail = () => {
   const [indexActive, setIndexActive] =
     useState(0);
   const [productData, setProductData] =
     useState();
+  
   const dispatch = useDispatch();
   const { id } = useParams();
   const loader = useSelector(
@@ -82,7 +74,7 @@ const Detail = () => {
     <>
       <div className="bg-[#F5F5FA] w-full flex flex-col relative z-[9] laptop:items-center laptop:justify-center">
         <div className="w-full laptop:max-w-[73.75rem] laptop:bg-[#f5f5fa] pb-[4rem] tablet:pb-0">
-          <Breadcrumb titles={breadcrumbs} />
+          {productData && <Breadcrumb name={productData?.title} category={productData?.category} />}
 
           {/* product overview */}
           <div className="tablet:flex tablet:flex-row">

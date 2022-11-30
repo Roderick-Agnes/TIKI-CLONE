@@ -23,6 +23,7 @@ import ProductSuggest from "./templates/ProductSuggest";
 import Promotion from "./templates/Promotion";
 import Home from "./pages/Home";
 import Detail from "./pages/Detail";
+import Category from "./pages/Category";
 
 const override = {
   position: "fixed",
@@ -37,7 +38,7 @@ const override = {
 function App() {
   const [showPopup, setShowPopup] =
     useState(false);
-  const [category, setCategory] = useState([]);
+  
 
   const dispatch = useDispatch();
   const userStore = useSelector(
@@ -50,24 +51,6 @@ function App() {
   const togglePopup = () => {
     setShowPopup(!showPopup);
   };
-
-  const API_CATEGORY_URL =
-    "https://api.tiki.vn/shopping/v2/widgets/home-category-tab-bar?trackity_id=0133075b-db6b-f905-4dbf-c62d0902c027";
-
-  useEffect(() => {
-    (async () => {
-      try {
-        //set category data to state
-        axios
-          .get(API_CATEGORY_URL)
-          .then((res) => {
-            setCategory(res.data.data);
-          });
-      } catch (err) {
-        console.log(err);
-      }
-    })();
-  }, []);
 
   return (
     <div
@@ -122,6 +105,10 @@ function App() {
         <Route
           path="/product/:id"
           element={<Detail />}
+        />
+        <Route
+          path="/categories/:id"
+          element={<Category />}
         />
       </Routes>
       <Footer />
