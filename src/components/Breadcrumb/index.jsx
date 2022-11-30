@@ -25,7 +25,7 @@ const Breadcrumb = ({name, category}) => {
               {item?.link 
               ? <Link to={item?.link} className="text-[#808089] text-[14px] hover:underline cursor-pointer">{item?.name}</Link> 
               : (
-              <>
+                <>
                   <Link className=" text-[#808089] text-[14px] tablet:hidden">{sliceTitleShort(item?.name, 15)}</Link>
                   <Link className=" text-[#808089] text-[14px] x-mobile:hidden mobile:hidden">{item?.name}</Link>
                 </>
