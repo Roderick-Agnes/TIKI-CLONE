@@ -22,8 +22,14 @@ const Breadcrumb = ({name, category}) => {
               key={`breadscrumb-title-${idx}`}
               className="flex items-center gap-1 text-[#808089] text-[14px]"
             >
-              {item?.link ? <Link to={item?.link} className="text-[#808089] text-[14px] hover:underline cursor-pointer">{item?.name}</Link> : (<><Link className=" text-[#808089] text-[14px] tablet:hidden">{sliceTitleShort(item?.name, 15)}</Link>
-              <Link className=" text-[#808089] text-[14px] x-mobile:hidden mobile:hidden">{item?.name}</Link></>)}
+              {item?.link 
+              ? <Link to={item?.link} className="text-[#808089] text-[14px] hover:underline cursor-pointer">{item?.name}</Link> 
+              : (
+              <>
+                  <Link className=" text-[#808089] text-[14px] tablet:hidden">{sliceTitleShort(item?.name, 15)}</Link>
+                  <Link className=" text-[#808089] text-[14px] x-mobile:hidden mobile:hidden">{item?.name}</Link>
+                </>
+                )}
               
               {idx < breadcrumb.length - 1 && (
                 <MdArrowForwardIos className="text-[#808089] text-[14px]" />
