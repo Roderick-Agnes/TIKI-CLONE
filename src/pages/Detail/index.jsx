@@ -25,13 +25,12 @@ import {
 import { htmlFrom } from "../../utils/validateHtmlString";
 import "./index.css";
 
-
 const Detail = () => {
   const [indexActive, setIndexActive] =
     useState(0);
   const [productData, setProductData] =
     useState();
-  
+
   const dispatch = useDispatch();
   const { id } = useParams();
   const loader = useSelector(
@@ -74,7 +73,12 @@ const Detail = () => {
     <>
       <div className="bg-[#F5F5FA] w-full flex flex-col relative z-[9] laptop:items-center laptop:justify-center">
         <div className="w-full laptop:max-w-[73.75rem] laptop:bg-[#f5f5fa] pb-[4rem] tablet:pb-0">
-          {productData && <Breadcrumb name={productData?.title} category={productData?.category} />}
+          {productData && (
+            <Breadcrumb
+              name={productData?.title}
+              category={productData?.category}
+            />
+          )}
 
           {/* product overview */}
           <div className="tablet:flex tablet:flex-row">
