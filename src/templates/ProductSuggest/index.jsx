@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import collectionApi from "../../api/collectionApi";
 import CollectionItem from "../../components/CollectionItem";
+import Products from "../../components/Products";
 import Product from "./components/Product";
 
 import "./index.css";
@@ -105,7 +106,7 @@ const ProductSuggest = () => {
 
   return (
     <section className="flex flex-col justify-center items-center w-full">
-      <div className="sticky top-0 bg-[#f5f5fa]  w-full laptop:max-w-[73.75rem]">
+      <div className="sticky top-0 bg-[#f5f5fa]  w-full laptop:max-w-[74rem]">
         <div className="flex flex-col justify-center items-center w-full m-0 p-[0.5rem] bg-white rounded">
           <span className="w-full text-left text-[20px] leading-7 text-[#242424]">
             Gợi Ý Hôm Nay
@@ -141,7 +142,33 @@ const ProductSuggest = () => {
           </div>
         </div>
       </div>
-      <div className="pb-[4rem] tablet:pb-0 flex flex-col justify-center items-center w-full bg-transparent rounded laptop:max-w-[73.75rem]">
+      {dataCollection.length > 0 && (
+        <div className="w-full laptop:max-w-[73.75rem]">
+          <Products products={dataCollection} />
+          {
+            // SHOW LOAD MORE BUTTON IF QUANTITY OF COLLECTION TAB HAS BEEN CHOSE NO MAXIMUM
+            !collections[itemIsActived]
+              ?._maxQuantity && (
+              <div className="flex justify-center w-full">
+                <div
+                  className={
+                    !loading
+                      ? "my-[1rem] text-[#1a94ff] border-solid border-[0.2px] border-[#1a94ff] bg-transparent rounded-[3px] py-[0.5rem] px-[1rem] min-w-10rem min-h-[2rem] w-[12rem] text-[14px] font-medium cursor-pointer shadow-button flex justify-center items-center hover:bg-[#1A94FF] hover:text-white"
+                      : "my-[1rem]  border-solid border-[0.2px] border-[#1a94ff]  rounded-[3px] py-[0.5rem] px-[1rem] min-w-10rem min-h-[2rem] w-[12rem] text-[14px] font-medium cursor-pointer shadow-button flex justify-center items-center hover:bg-[#1A94FF] hover:text-white text-white bg-[#1A94FF]"
+                  }
+                  onClick={handleLoadMore}
+                >
+                  {!loading
+                    ? "Xem thêm"
+                    : "Loading..."}
+                </div>
+              </div>
+            )
+          }
+        </div>
+      )}
+
+      {/* <div className="pb-[4rem] tablet:pb-0 flex flex-col justify-center items-center w-full bg-transparent rounded laptop:max-w-[73.75rem]">
         <div className="max-w-fit  bg-[#f5f5fa] flex justify-center  flex-wrap gap-[0.5rem] overflow-hidden">
           {
             // THE PRODUCT LIST WILL BE RENDERED BASED COLLECTION TAB HAS BEEN CHOSE
@@ -174,7 +201,7 @@ const ProductSuggest = () => {
             </div>
           )
         }
-      </div>
+      </div> */}
     </section>
   );
 };

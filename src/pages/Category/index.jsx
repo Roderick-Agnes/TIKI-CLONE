@@ -1,6 +1,7 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import Rating from "react-rating";
 import {
+  useLocation,
   useParams,
   useSearchParams,
 } from "react-router-dom";
@@ -11,24 +12,57 @@ import {
   BsStarHalf,
 } from "react-icons/bs";
 import { BiMinus } from "react-icons/bi";
+import Products from "../../components/Products";
+import productApi from "../../api/productApi";
+import queryString from "query-string";
+
+let queryParams = {
+  _page: 1,
+  _limit: 40,
+};
 
 const Category = () => {
+  const [products, setProducts] = useState();
   const { id } = useParams();
   const [searchParams, setSearchParams] =
     useSearchParams();
+  const location = useLocation();
+  const urlParams = queryString.parse(
+    location.search,
+  );
+
+  const fetchProductsByCategoryId = async () => {
+    try {
+      const data =
+        await productApi.getProductsByCategoryId(
+          id,
+          queryParams,
+        );
+      return data;
+    } catch (error) {
+      console.log("Failed to fetch data");
+    }
+  };
+
   useEffect(() => {
-    setSearchParams({ hello: "world" });
-    console.log(searchParams.values);
+    (async () => {
+      const data =
+        await fetchProductsByCategoryId();
+      if (data) {
+        setProducts(data.data[0].products);
+      }
+    })();
   }, []);
+
   return (
     <div className="bg-[#F5F5FA] w-full flex flex-col relative z-[9] laptop:items-center laptop:justify-center">
-      <div className="w-full laptop:max-w-[73.75rem] laptop:bg-[#f5f5fa] pb-[4rem] tablet:pb-0">
+      <div className="w-full laptop:max-w-[75rem] laptop:bg-[#f5f5fa] pb-[4rem] tablet:pb-0">
         <Breadcrumb
           name={"abc"}
           category={null}
         />
 
-        <div className="flex flex-row mb-4">
+        <div className="flex flex-row mb-4 gap-3">
           {/* filter section */}
           <div className="flex flex-col">
             {/* customer'address */}
@@ -103,7 +137,9 @@ const Category = () => {
             </div>
           </div>
           {/* products */}
-          <div className=""></div>
+          <div className="">
+            <Products products={products} />
+          </div>
         </div>
       </div>
     </div>

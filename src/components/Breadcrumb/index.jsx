@@ -9,7 +9,7 @@ const Breadcrumb = ({ name, category }) => {
     setBreadcrumb([
       { name: "Trang chủ", link: "/" },
       {
-        name: category?.name,
+        name: category?.title,
         link: `/categories/${category?.id}`,
       },
       { name: name, link: null },

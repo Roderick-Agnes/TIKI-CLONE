@@ -37,6 +37,24 @@ const productApi = {
     const data = await axiosClient.get(url);
     return data;
   },
+  async getProductsByCategoryId(id, params) {
+    // Transform _page to _start
+    const newParams = { ...params };
+    newParams._start =
+      !params._page || params._page <= 1
+        ? 0
+        : (params._page - 1) *
+          (params._limit || 40);
+
+    // Remove un-needed key
+    delete newParams._page;
+
+    const url = `/products/category/${id}`;
+    const data = await axiosClient.get(url, {
+      params: newParams,
+    });
+    return data;
+  },
   async add(product) {
     const url = "/products";
     const data = await axiosClient.post(

@@ -42,7 +42,7 @@ const Detail = () => {
       await productApi.getProductById(id);
     if (product) {
       console.log("product: ", product);
-      setProductData(product?.data);
+      setProductData(product?.data[0]);
       offLoading(dispatch);
     } else {
       console.log("No product");
@@ -76,7 +76,7 @@ const Detail = () => {
           {productData && (
             <Breadcrumb
               name={productData?.title}
-              category={productData?.category}
+              category={productData?.category[0]}
             />
           )}
 
@@ -127,18 +127,12 @@ const Detail = () => {
               {/* Brand name of product */}
               <span className="text-[13px] text-main">
                 Thương hiệu:{" "}
-                {productData?.brand_name.map(
-                  (brand, idx) => {
-                    return (
-                      <span
-                        key={`brand-name-${idx}`}
-                        className="text-blue"
-                      >
-                        {brand}
-                      </span>
-                    );
-                  },
-                )}
+                <span
+                  key={`brand-name`}
+                  className="text-blue"
+                >
+                  {productData?.brand_name}
+                </span>
               </span>
               {/* Product name */}
               <h1 className="text-[#504d4d] text-2xl font-light break-words py-2">
