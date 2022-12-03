@@ -20,9 +20,17 @@ let queryParams = {
   _page: 1,
   _limit: 40,
 };
+const filterItems = [
+  { title: "Bán chạy", code: "selling" },
+  { title: "Hàng mới", code: "new" },
+  { title: "Giá thấp đến cao", code: "asc" },
+  { title: "Giá cao đến thấp", code: "desc" },
+];
 
 const Category = () => {
-  const [products, setProducts] = useState();
+  const [category, setCategory] = useState();
+  const [filterActive, setFilterActive] =
+    useState(0);
   const { id } = useParams();
   const [searchParams, setSearchParams] =
     useSearchParams();
@@ -49,7 +57,8 @@ const Category = () => {
       const data =
         await fetchProductsByCategoryId();
       if (data) {
-        setProducts(data.data[0].products);
+        setCategory(data.data[0]);
+        console.log(data.data[0]);
       }
     })();
   }, []);
@@ -57,13 +66,15 @@ const Category = () => {
   return (
     <div className="bg-[#F5F5FA] w-full flex flex-col relative z-[9] laptop:items-center laptop:justify-center">
       <div className="w-full laptop:max-w-[75rem] laptop:bg-[#f5f5fa] pb-[4rem] tablet:pb-0">
-        <Breadcrumb
-          name={"abc"}
-          category={null}
-        />
+        {category && (
+          <Breadcrumb
+            category={null}
+            name={category?.title}
+          />
+        )}
 
         <div className="flex flex-row mb-4 gap-3">
-          {/* filter section */}
+          {/* filter section - left */}
           <div className="flex flex-col">
             {/* customer'address */}
             <div className="min-w-[200px] max-w-[200px] bg-white py-3 px-3 rounded-l-sm border-b border-solid border-t-0 border-l-0 border-r-0 border-[#e7e7e7]">
@@ -136,9 +147,47 @@ const Category = () => {
               </button>
             </div>
           </div>
-          {/* products */}
-          <div className="">
-            <Products products={products} />
+          {/* products - right */}
+          <div className="flex flex-col gap-1">
+            {/* filter navbar */}
+            <div className="flex flex-row justify-between px-4  w-full  bg-white border-b border-solid border-t-0 border-l-0 border-r-0 border-[#e7e7e7]">
+              <div className="py-4  w-full flex flex-row relative">
+                {filterItems.map(
+                  (filter, idx) => (
+                    <div
+                      key={`filter-${filter.code}`}
+                      className={`flex flex-col justify-center items-center cursor-pointer mx-4 first:mr-4 first:ml-0 last:ml-4 last:mr-0 
+                      hover:content-[''] hover:text-co hover:font-semibold hover:text-blue ${
+                        filterActive === idx
+                          ? "font-semibold text-blue"
+                          : `hover:rounded hover:border-b-4 hover:border-solid hover:border-t-0 hover:border-l-0 hover:border-r-0 hover:border-blue`
+                      } `}
+                      onClick={() => {
+                        setFilterActive(idx);
+                      }}
+                    >
+                      <span
+                        className={` text-sm pb-1 whitespace-pre-line`}
+                      >
+                        {filter.title}
+                      </span>
+                      <span
+                        className={`w-[40px] z-10 rounded border-b-4 border-solid border-t-0 border-l-0 border-r-0 border-blue ${
+                          filterActive === idx
+                            ? "block"
+                            : "hidden"
+                        }`}
+                      ></span>
+                    </div>
+                  ),
+                )}
+              </div>
+              <div className=""></div>
+            </div>
+            {/* products list after filter */}
+            <Products
+              products={category?.products}
+            />
           </div>
         </div>
       </div>

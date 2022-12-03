@@ -22,35 +22,38 @@ const Breadcrumb = ({ name, category }) => {
         {breadcrumb &&
           breadcrumb.map((item, idx) => {
             return (
-              <li
-                key={`breadscrumb-title-${idx}`}
-                className="flex items-center gap-1 text-[#808089] text-[14px]"
-              >
-                {item?.link ? (
-                  <Link
-                    to={item?.link}
-                    className="text-[#808089] text-[14px] hover:underline cursor-pointer"
-                  >
-                    {item?.name}
-                  </Link>
-                ) : (
-                  <>
-                    <Link className=" text-[#808089] text-[14px] laptop:hidden">
-                      {sliceTitleShort(
-                        item?.name,
-                        15,
-                      )}
-                    </Link>
-                    <Link className=" text-[#808089] text-[14px] hidden laptop:block">
+              item?.name && (
+                <li
+                  key={`breadscrumb-title-${idx}`}
+                  className="flex items-center gap-1 text-[#808089] text-[14px]"
+                >
+                  {item?.link ? (
+                    <Link
+                      to={item?.link}
+                      className="text-[#808089] text-[14px] hover:underline cursor-pointer"
+                    >
                       {item?.name}
                     </Link>
-                  </>
-                )}
+                  ) : (
+                    <>
+                      <Link className=" text-[#808089] text-[14px] laptop:hidden">
+                        {sliceTitleShort(
+                          item?.name,
+                          15,
+                        )}
+                      </Link>
+                      <Link className=" text-[#808089] text-[14px] hidden laptop:block">
+                        {item?.name}
+                      </Link>
+                    </>
+                  )}
 
-                {idx < breadcrumb.length - 1 && (
-                  <MdArrowForwardIos className="text-[#808089] text-[14px]" />
-                )}
-              </li>
+                  {idx <
+                    breadcrumb.length - 1 && (
+                    <MdArrowForwardIos className="text-[#808089] text-[14px]" />
+                  )}
+                </li>
+              )
             );
           })}
       </ul>

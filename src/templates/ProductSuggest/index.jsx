@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import collectionApi from "../../api/collectionApi";
 import CollectionItem from "../../components/CollectionItem";
 import Products from "../../components/Products";
-import Product from "./components/Product";
 
 import "./index.css";
 

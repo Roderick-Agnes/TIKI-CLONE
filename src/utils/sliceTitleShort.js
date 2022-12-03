@@ -1,5 +1,10 @@
 export const sliceTitleShort = (str, size) => {
-  if (str.length < size || str.length === 0) return str;
+  if (
+    !str ||
+    str.length < size ||
+    str.length === 0
+  )
+    return str;
   const strs = str.split(" ");
   return (
     strs.reduce((strSave, item) => {
