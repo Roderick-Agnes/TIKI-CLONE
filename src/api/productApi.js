@@ -46,8 +46,8 @@ const productApi = {
         : (params._page - 1) *
           (params._limit || 40);
 
-    // Remove un-needed key
-    delete newParams._page;
+    // // Remove un-needed key
+    // delete newParams._page;
 
     const url = `/products/category/${id}`;
     const data = await axiosClient.get(url, {

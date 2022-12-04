@@ -11,15 +11,16 @@ import {
   BsStarFill,
   BsStarHalf,
 } from "react-icons/bs";
+import {
+  SlArrowLeft,
+  SlArrowRight,
+} from "react-icons/sl";
 import { BiMinus } from "react-icons/bi";
 import Products from "../../components/Products";
 import productApi from "../../api/productApi";
 import queryString from "query-string";
+import { Pagination } from "@mui/material";
 
-let queryParams = {
-  _page: 1,
-  _limit: 40,
-};
 const filterItems = [
   { title: "Bán chạy", code: "selling" },
   { title: "Hàng mới", code: "new" },
@@ -31,6 +32,12 @@ const Category = () => {
   const [category, setCategory] = useState();
   const [filterActive, setFilterActive] =
     useState(0);
+  const [pagination, setPagination] = useState();
+  const [filters, setFilters] = useState({
+    _page: 1,
+    _limit: 40,
+  });
+
   const { id } = useParams();
   const [searchParams, setSearchParams] =
     useSearchParams();
@@ -44,12 +51,36 @@ const Category = () => {
       const data =
         await productApi.getProductsByCategoryId(
           id,
-          queryParams,
+          filters,
         );
+      console.log(data);
       return data;
     } catch (error) {
       console.log("Failed to fetch data");
     }
+  };
+
+  const handleChange = (event, value) => {
+    setFilters((filter) => {
+      return { ...filter, _page: value };
+    });
+    console.log(filters);
+  };
+  const prevPage = () => {
+    setFilters((filter) => {
+      return {
+        ...filter,
+        _page: filter._page - 1,
+      };
+    });
+  };
+  const nextPage = () => {
+    setFilters((filter) => {
+      return {
+        ...filter,
+        _page: filter._page + 1,
+      };
+    });
   };
 
   useEffect(() => {
@@ -57,11 +88,15 @@ const Category = () => {
       const data =
         await fetchProductsByCategoryId();
       if (data) {
-        setCategory(data.data[0]);
-        console.log(data.data[0]);
+        setCategory(data?.data.category[0]);
+        setPagination(data?.data.pagination);
+        console.log(
+          "data: ",
+          data.data.category[0],
+        );
       }
     })();
-  }, []);
+  }, [filters]);
 
   return (
     <div className="bg-[#F5F5FA] w-full flex flex-col relative z-[9] laptop:items-center laptop:justify-center">
@@ -150,8 +185,8 @@ const Category = () => {
           {/* products - right */}
           <div className="flex flex-col gap-1">
             {/* filter navbar */}
-            <div className="flex flex-row justify-between px-4  w-full  bg-white border-b border-solid border-t-0 border-l-0 border-r-0 border-[#e7e7e7]">
-              <div className="py-4  w-full flex flex-row relative">
+            <div className="flex flex-row justify-between px-4 py-4  w-full  bg-white border-b border-solid border-t-0 border-l-0 border-r-0 border-[#e7e7e7]">
+              <div className=" w-full flex flex-row relative">
                 {filterItems.map(
                   (filter, idx) => (
                     <div
@@ -182,12 +217,59 @@ const Category = () => {
                   ),
                 )}
               </div>
-              <div className=""></div>
+              <div className="flex flex-row justify-between items-center text-sm space-x-4">
+                <div className="space-x-2">
+                  <span className="text-blue">
+                    {filters?._page || 0}
+                  </span>
+                  <span>/</span>
+                  <span>
+                    {pagination?._max_page || 0}
+                  </span>
+                </div>
+                <div className="flex flex-row space-x-4 text-sm font-medium">
+                  <SlArrowLeft
+                    className={`${
+                      filters._page === 1
+                        ? "opacity-20"
+                        : "cursor-pointer"
+                    }`}
+                    onClick={() => {
+                      filters._page !== 1 &&
+                        prevPage();
+                    }}
+                  />
+                  <SlArrowRight
+                    className={`${
+                      filters._page ===
+                      pagination?._max_page
+                        ? "opacity-20"
+                        : "cursor-pointer"
+                    }`}
+                    onClick={() => {
+                      filters._page !==
+                        pagination?._max_page &&
+                        nextPage();
+                    }}
+                  />
+                </div>
+              </div>
             </div>
             {/* products list after filter */}
-            <Products
-              products={category?.products}
-            />
+            <div className="flex flex-col last:items-center">
+              <Products
+                products={category?.products}
+              />
+              <Pagination
+                page={filters._page}
+                count={pagination?._max_page}
+                color="primary"
+                className="mt-5"
+                showFirstButton
+                showLastButton
+                onChange={handleChange}
+              />
+            </div>
           </div>
         </div>
       </div>
