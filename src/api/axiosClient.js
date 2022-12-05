@@ -6,7 +6,8 @@ import userApi from "./userApi";
 //https://agnes-shop-api.onrender.com
 // http://localhost:5000
 let axiosClient = axios.create({
-  baseURL: "https://agnes-shop-api.onrender.com",
+  baseURL:
+    "https://agnes-shop-api.onrender.com/api",
   headers: {
     "Content-Type": "application/json",
     "Access-Control-Allow-Origin": "*",

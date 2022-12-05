@@ -20,23 +20,37 @@ import Products from "../../components/Products";
 import productApi from "../../api/productApi";
 import queryString from "query-string";
 import { Pagination } from "@mui/material";
+import { useRef } from "react";
+import { useCallback } from "react";
 
 const filterItems = [
-  { title: "Bán chạy", code: "selling" },
-  { title: "Hàng mới", code: "new" },
-  { title: "Giá thấp đến cao", code: "asc" },
-  { title: "Giá cao đến thấp", code: "desc" },
+  { title: "Bán chạy", filterCode: "HOT" },
+  { title: "Hàng mới", filterCode: "NEW" },
+  {
+    title: "Giá thấp đến cao",
+    filterCode: "ASC",
+  },
+  {
+    title: "Giá cao đến thấp",
+    filterCode: "DESC",
+  },
 ];
 
 const Category = () => {
   const [category, setCategory] = useState();
   const [filterActive, setFilterActive] =
-    useState(0);
+    useState(filterItems[0]);
   const [pagination, setPagination] = useState();
   const [filters, setFilters] = useState({
     _page: 1,
     _limit: 40,
+    _filterBy: filterActive.filterCode,
+    _rating: "all",
+    _priceRangeStart: 0,
+    _priceRangeEnd: 0,
   });
+  const priceStart = useRef(0);
+  const priceEnd = useRef(0);
 
   const { id } = useParams();
   const [searchParams, setSearchParams] =
@@ -79,6 +93,26 @@ const Category = () => {
       return {
         ...filter,
         _page: filter._page + 1,
+      };
+    });
+  };
+  const filterByRating = (rate) => {
+    setFilters((filter) => {
+      return {
+        ...filter,
+        _rating: rate,
+        _page: 1,
+      };
+    });
+  };
+  const filterByPriceRange = () => {
+    setFilters((filter) => {
+      return {
+        ...filter,
+        _priceRangeStart:
+          parseInt(priceStart.current.value) || 0,
+        _priceRangeEnd:
+          parseInt(priceEnd.current.value) || 0,
       };
     });
   };
@@ -132,6 +166,9 @@ const Category = () => {
                 <div
                   className="py-1 flex flex-row items-center cursor-pointer"
                   key={`rating-${rate}`}
+                  onClick={() => {
+                    filterByRating(rate);
+                  }}
                 >
                   <Rating
                     className="  flex items-center gap-[2px]"
@@ -166,39 +203,78 @@ const Category = () => {
                 <div className="flex flex-row justify-between items-center ">
                   <input
                     type="number"
-                    defaultValue={0}
+                    min={0}
+                    minLength={1}
+                    defaultValue={
+                      filters._priceRangeStart
+                    }
+                    onChange={(e) => {
+                      if (priceStart === "")
+                        priceStart.current.value = 0;
+                      if (
+                        e.target.value !== 0 &&
+                        e.target.value &&
+                        e.target.value >= 1000
+                      ) {
+                        priceEnd.current.value =
+                          parseInt(
+                            e.target.value,
+                          ) * 10;
+                      } else {
+                        priceEnd.current.value = 0;
+                      }
+                    }}
+                    ref={priceStart}
                     className="max-w-[5rem] text-[12px] p-2 rounded-md border-solid border-[0.5px] border-[#c0c0c0] outline-none"
                   />
                   <BiMinus className="text-[#c0c0c0]" />
                   <input
                     type="number"
-                    defaultValue={0}
+                    defaultValue={
+                      filters._priceRangeEnd
+                    }
+                    ref={priceEnd}
                     className="max-w-[5rem] text-[12px] p-2 rounded-md border-solid border-[0.5px] border-[#c0c0c0] outline-none "
                   />
                 </div>
               </div>
-              <button className="rounded outline-none border-[0.5px] border-blue bg-white text-blue text-xs w-full p-1 cursor-pointer hover:text-white hover:bg-blue hover:shadow-button">
+              <button
+                className="rounded outline-none border-[0.5px] border-blue bg-white text-blue text-xs w-full p-1 cursor-pointer hover:text-white hover:bg-blue hover:shadow-button"
+                onClick={filterByPriceRange}
+              >
                 Áp dụng
               </button>
             </div>
           </div>
           {/* products - right */}
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col w-full gap-1">
             {/* filter navbar */}
             <div className="flex flex-row justify-between px-4 py-4  w-full  bg-white border-b border-solid border-t-0 border-l-0 border-r-0 border-[#e7e7e7]">
               <div className=" w-full flex flex-row relative">
                 {filterItems.map(
                   (filter, idx) => (
                     <div
-                      key={`filter-${filter.code}`}
+                      key={`filter-${filter.filterCode}`}
                       className={`flex flex-col justify-center items-center cursor-pointer mx-4 first:mr-4 first:ml-0 last:ml-4 last:mr-0 
                       hover:content-[''] hover:text-co hover:font-semibold hover:text-blue ${
-                        filterActive === idx
+                        filterActive.filterCode ===
+                        filter.filterCode
                           ? "font-semibold text-blue"
                           : `hover:rounded hover:border-b-4 hover:border-solid hover:border-t-0 hover:border-l-0 hover:border-r-0 hover:border-blue`
                       } `}
                       onClick={() => {
-                        setFilterActive(idx);
+                        setFilterActive(filter);
+                        setFilters(
+                          (prevFilter) => {
+                            return {
+                              ...prevFilter,
+                              _filterBy:
+                                filter.filterCode,
+                              _rating: "all",
+                              _page: 1,
+                            };
+                          },
+                        );
                       }}
                     >
                       <span
@@ -208,7 +284,8 @@ const Category = () => {
                       </span>
                       <span
                         className={`w-[40px] z-10 rounded border-b-4 border-solid border-t-0 border-l-0 border-r-0 border-blue ${
-                          filterActive === idx
+                          filterActive.filterCode ===
+                          filter.filterCode
                             ? "block"
                             : "hidden"
                         }`}
@@ -256,7 +333,7 @@ const Category = () => {
               </div>
             </div>
             {/* products list after filter */}
-            <div className="flex flex-col last:items-center">
+            <div className="flex flex-col last:items-center w-full">
               <Products
                 products={category?.products}
               />

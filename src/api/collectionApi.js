@@ -6,14 +6,19 @@ const collectionApi = {
 
     const url = `/collections/`;
 
-    const res = await axiosClient.get(url, { params: newParams });
+    const res = await axiosClient.get(url, {
+      params: newParams,
+    });
 
     return res;
   },
   getCollectionById(params) {
     const newParams = { ...params };
     newParams._start =
-      !params._page || params._page <= 1 ? 0 : (params._page - 1) * (params._limit || 30);
+      !params._page || params._page <= 1
+        ? 0
+        : (params._page - 1) *
+          (params._limit || 30);
 
     delete newParams.page;
     const url = `/collections/${params._id}?_start=${newParams._start}&_limit=${newParams._limit}`;
