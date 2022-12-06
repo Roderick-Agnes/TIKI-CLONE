@@ -2,12 +2,14 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { loginFulfilled } from "../redux/userSlice";
 import userApi from "./userApi";
-//https://agnes-shop-api.herokuapp.com
-//https://agnes-shop-api.onrender.com
-// http://localhost:5000
+const localApi = "http://localhost:5000/api";
+const herokuApi =
+  "https://agnes-shop-api.herokuapp.com/api";
+const onrenderApi =
+  "https://agnes-shop-api.onrender.com/api";
+
 let axiosClient = axios.create({
-  baseURL:
-    "https://agnes-shop-api.onrender.com/api",
+  baseURL: localApi,
   headers: {
     "Content-Type": "application/json",
     "Access-Control-Allow-Origin": "*",

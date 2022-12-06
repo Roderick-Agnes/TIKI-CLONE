@@ -38,6 +38,7 @@ const filterItems = [
 
 const Category = () => {
   const [category, setCategory] = useState();
+  const [brands, setBrands] = useState();
   const [filterActive, setFilterActive] =
     useState(filterItems[0]);
   const [pagination, setPagination] = useState();
@@ -48,6 +49,7 @@ const Category = () => {
     _rating: "all",
     _priceRangeStart: 0,
     _priceRangeEnd: 0,
+    _brands: [],
   });
   const priceStart = useRef(0);
   const priceEnd = useRef(0);
@@ -74,7 +76,10 @@ const Category = () => {
     }
   };
 
-  const handleChange = (event, value) => {
+  const handlePaginationChange = (
+    event,
+    value,
+  ) => {
     setFilters((filter) => {
       return { ...filter, _page: value };
     });
@@ -117,12 +122,28 @@ const Category = () => {
     });
   };
 
+  const filterByBrands = (e) => {
+    setFilters((filter) => {
+      return {
+        ...filter,
+        _brands: !filter._brands.includes(
+          e.target.value,
+        )
+          ? [...filter._brands, e.target.value]
+          : [...filter._brands].filter(
+              (brand) => brand !== e.target.value,
+            ),
+      };
+    });
+  };
+
   useEffect(() => {
     (async () => {
       const data =
         await fetchProductsByCategoryId();
       if (data) {
         setCategory(data?.data.category[0]);
+        setBrands(data?.data.brands);
         setPagination(data?.data.pagination);
         console.log(
           "data: ",
@@ -133,8 +154,8 @@ const Category = () => {
   }, [filters]);
 
   return (
-    <div className="bg-[#F5F5FA] w-full flex flex-col relative z-[9] laptop:items-center laptop:justify-center">
-      <div className="w-full laptop:max-w-[75rem] laptop:bg-[#f5f5fa] pb-[4rem] tablet:pb-0">
+    <div className='bg-[#F5F5FA] w-full flex flex-col relative z-[9] laptop:items-center laptop:justify-center'>
+      <div className='w-full laptop:max-w-[75rem] laptop:bg-[#f5f5fa] pb-[4rem] tablet:pb-0'>
         {category && (
           <Breadcrumb
             category={null}
@@ -142,67 +163,67 @@ const Category = () => {
           />
         )}
 
-        <div className="flex flex-row mb-4 gap-3">
+        <div className='flex flex-row mb-4 gap-3'>
           {/* filter section - left */}
-          <div className="flex flex-col">
+          <div className='flex flex-col'>
             {/* customer'address */}
-            <div className="min-w-[200px] max-w-[200px] bg-white py-3 px-3 rounded-l-sm border-b border-solid border-t-0 border-l-0 border-r-0 border-[#e7e7e7]">
-              <div className="text-[#38383d] text-sm font-semibold pb-3">
+            <div className='min-w-[200px] max-w-[200px] bg-white py-3 px-3 rounded-l-sm border-b border-solid border-t-0 border-l-0 border-r-0 border-[#e7e7e7]'>
+              <div className='text-[#38383d] text-sm font-semibold pb-3'>
                 Địa chỉ nhận hàng
               </div>
-              <div className="text-[12px] whitespace-nowrap underline mb-1">
+              <div className='text-[12px] whitespace-nowrap underline mb-1'>
                 Q. 1, P. Bến Nghé, Hồ Chí Minh
               </div>
-              <div className="text-xs text-dark-blue font-semibold cursor-pointer">
+              <div className='text-xs text-dark-blue font-semibold cursor-pointer'>
                 Đổi địa chỉ
               </div>
             </div>
             {/* filter by rating */}
-            <div className="min-w-[200px] max-w-[200px] bg-white py-3 px-3 rounded-l-sm border-b border-solid border-t-0 border-l-0 border-r-0 border-[#e7e7e7]">
-              <div className="text-[#38383d] text-sm font-semibold pb-3">
+            <div className='min-w-[200px] max-w-[200px] bg-white py-3 px-3 rounded-l-sm border-b border-solid border-t-0 border-l-0 border-r-0 border-[#e7e7e7]'>
+              <div className='text-[#38383d] text-sm font-semibold pb-3'>
                 Đánh giá
               </div>
               {[5, 4, 3].map((rate) => (
                 <div
-                  className="py-1 flex flex-row items-center cursor-pointer"
+                  className='py-1 flex flex-row items-center cursor-pointer'
                   key={`rating-${rate}`}
                   onClick={() => {
                     filterByRating(rate);
                   }}
                 >
                   <Rating
-                    className="  flex items-center gap-[2px]"
+                    className='  flex items-center gap-[2px]'
                     placeholderRating={rate}
                     placeholderSymbol={
-                      <BsStarFill className="text-[12px] text-[#fdd940]" />
+                      <BsStarFill className='text-[12px] text-[#fdd940]' />
                     }
-                    readonly="true"
+                    readonly='true'
                     emptySymbol={
-                      <BsStarFill className="text-[12px] text-[#BCBCBC]" />
+                      <BsStarFill className='text-[12px] text-[#BCBCBC]' />
                     }
                     fullSymbol={
-                      <BsStarHalf className="text-[12px] text-[#fdd940]" />
+                      <BsStarHalf className='text-[12px] text-[#fdd940]' />
                     }
                     fractions={2}
                   />
-                  <div className="ml-2 text-[12px]">
+                  <div className='ml-2 text-[12px]'>
                     từ {rate} sao
                   </div>
                 </div>
               ))}
             </div>
-            {/* filter by price */}
-            <div className="min-w-[200px] max-w-[200px] bg-white py-3 px-3 rounded-l-sm border-b border-solid border-t-0 border-l-0 border-r-0 border-[#e7e7e7]">
-              <div className="text-[#38383d] text-sm font-semibold pb-3">
+            {/* filter by price range */}
+            <div className='min-w-[200px] max-w-[200px] bg-white py-3 px-3 rounded-l-sm border-b border-solid border-t-0 border-l-0 border-r-0 border-[#e7e7e7]'>
+              <div className='text-[#38383d] text-sm font-semibold pb-3'>
                 Giá
               </div>
-              <div className="max-w-[200px] mb-2">
-                <div className="mb-2 text-[12px] text-[#808089]">
+              <div className='max-w-[200px] mb-2'>
+                <div className='mb-2 text-[12px] text-[#808089]'>
                   Chọn khoảng giá
                 </div>
-                <div className="flex flex-row justify-between items-center ">
+                <div className='flex flex-row justify-between items-center '>
                   <input
-                    type="number"
+                    type='number'
                     min={0}
                     minLength={1}
                     defaultValue={
@@ -225,32 +246,71 @@ const Category = () => {
                       }
                     }}
                     ref={priceStart}
-                    className="max-w-[5rem] text-[12px] p-2 rounded-md border-solid border-[0.5px] border-[#c0c0c0] outline-none"
+                    className='max-w-[5rem] text-[12px] p-2 rounded-md border-solid border-[0.5px] border-[#c0c0c0] outline-none'
                   />
-                  <BiMinus className="text-[#c0c0c0]" />
+                  <BiMinus className='text-[#c0c0c0]' />
                   <input
-                    type="number"
+                    type='number'
                     defaultValue={
                       filters._priceRangeEnd
                     }
                     ref={priceEnd}
-                    className="max-w-[5rem] text-[12px] p-2 rounded-md border-solid border-[0.5px] border-[#c0c0c0] outline-none "
+                    className='max-w-[5rem] text-[12px] p-2 rounded-md border-solid border-[0.5px] border-[#c0c0c0] outline-none '
                   />
                 </div>
               </div>
               <button
-                className="rounded outline-none border-[0.5px] border-blue bg-white text-blue text-xs w-full p-1 cursor-pointer hover:text-white hover:bg-blue hover:shadow-button"
-                onClick={filterByPriceRange}
+                className='rounded outline-none border-[0.5px] border-blue bg-white text-blue text-xs w-full p-1 cursor-pointer hover:text-white hover:bg-blue hover:shadow-button'
+                onClick={() => {
+                  priceEnd.current.value !==
+                    "0" && filterByPriceRange();
+                }}
               >
                 Áp dụng
               </button>
             </div>
+            {/* filter by brand name */}
+            {brands && brands[0] !== "" && (
+              <div className='min-w-[200px] max-w-[200px] bg-white py-3 px-3 rounded-l-sm border-b border-solid border-t-0 border-l-0 border-r-0 border-[#e7e7e7]'>
+                <div className='text-[#38383d] text-sm font-semibold pb-3'>
+                  Thương hiệu
+                </div>
+
+                <div className='max-w-[200px] mb-2'>
+                  <div className='flex flex-col justify-start'>
+                    {brands.map((brand, idx) => {
+                      return (
+                        brand !== "" && (
+                          <div
+                            className='flex flex-row items-center w-full pb-3'
+                            key={brand}
+                          >
+                            <input
+                              type='checkbox'
+                              name={brand}
+                              value={brand}
+                              className='w-4 h-4'
+                              onChange={(e) =>
+                                filterByBrands(e)
+                              }
+                            />
+                            <p className='text-xs text-[#38383d] ml-3'>
+                              {brand}
+                            </p>
+                          </div>
+                        )
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
           {/* products - right */}
-          <div className="flex flex-col w-full gap-1">
+          <div className='flex flex-col w-full gap-1'>
             {/* filter navbar */}
-            <div className="flex flex-row justify-between px-4 py-4  w-full  bg-white border-b border-solid border-t-0 border-l-0 border-r-0 border-[#e7e7e7]">
-              <div className=" w-full flex flex-row relative">
+            <div className='flex flex-row justify-between px-4 py-4  w-full  bg-white border-b border-solid border-t-0 border-l-0 border-r-0 border-[#e7e7e7]'>
+              <div className=' w-full flex flex-row relative'>
                 {filterItems.map(
                   (filter, idx) => (
                     <div
@@ -294,9 +354,9 @@ const Category = () => {
                   ),
                 )}
               </div>
-              <div className="flex flex-row justify-between items-center text-sm space-x-4">
-                <div className="space-x-2">
-                  <span className="text-blue">
+              <div className='flex flex-row justify-between items-center text-sm space-x-4'>
+                <div className='space-x-2'>
+                  <span className='text-blue'>
                     {filters?._page || 0}
                   </span>
                   <span>/</span>
@@ -304,7 +364,7 @@ const Category = () => {
                     {pagination?._max_page || 0}
                   </span>
                 </div>
-                <div className="flex flex-row space-x-4 text-sm font-medium">
+                <div className='flex flex-row space-x-4 text-sm font-medium'>
                   <SlArrowLeft
                     className={`${
                       filters._page === 1
@@ -333,18 +393,18 @@ const Category = () => {
               </div>
             </div>
             {/* products list after filter */}
-            <div className="flex flex-col last:items-center w-full">
+            <div className='flex flex-col last:items-center w-full'>
               <Products
                 products={category?.products}
               />
               <Pagination
                 page={filters._page}
                 count={pagination?._max_page}
-                color="primary"
-                className="mt-5"
+                color='primary'
+                className='mt-5'
                 showFirstButton
                 showLastButton
-                onChange={handleChange}
+                onChange={handlePaginationChange}
               />
             </div>
           </div>

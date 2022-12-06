@@ -59,6 +59,7 @@ function FeatureCategory(props) {
                     key={
                       item?.id ? item.id : index
                     }
+                    categoryId={item.id}
                     image_url={item.thumbnail}
                     title={sliceTitleShort(
                       item.title,

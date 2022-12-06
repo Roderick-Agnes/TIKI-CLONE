@@ -1,10 +1,14 @@
+import { useNavigate } from "react-router-dom";
 const QuickLinksTab = (props) => {
-  const { image_url, title, url } = props;
+  const { image_url, title, categoryId } = props;
+  const navigate = useNavigate();
   return (
     <>
-      <a
-        href={url}
+      <div
         className="flex flex-col items-center h-full p-[5px] cursor-pointer"
+        onClick={() => {
+          navigate(`/categories/${categoryId}`);
+        }}
       >
         <img
           src={image_url}
@@ -14,7 +18,7 @@ const QuickLinksTab = (props) => {
         <span className="text-[13px] text-[rgb(36,36,36)] font-thin mt-4 w-[110px] text-center min-h-[39px]">
           {title}
         </span>
-      </a>
+      </div>
     </>
   );
 };
