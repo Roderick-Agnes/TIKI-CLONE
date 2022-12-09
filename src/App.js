@@ -38,9 +38,7 @@ const override = {
 function App() {
   const [showPopup, setShowPopup] =
     useState(false);
-  
 
-  const dispatch = useDispatch();
   const userStore = useSelector(
     (state) => state.user,
   );
@@ -54,7 +52,7 @@ function App() {
 
   return (
     <div
-      className="w-full max-w-full h-screen bg-blue"
+      className='w-full max-w-full h-screen bg-blue'
       style={{
         position: `${
           showPopup ||
@@ -66,7 +64,7 @@ function App() {
       }}
     >
       <ToastContainer
-        position="top-right"
+        position='top-right'
         autoClose={5000}
         hideProgressBar={false}
         newestOnTop={false}
@@ -75,21 +73,21 @@ function App() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="light"
+        theme='light'
       />
-      {userStore.isLoading ||
+      {/* {userStore.isLoading ||
         (loader.isLoading && (
-          <span className="spinner overlay">
+          <span className='spinner overlay'>
             <SyncLoader
-              color="#1A94FF"
+              color='#1A94FF'
               loading={true}
               cssOverride={override}
               size={15}
-              aria-label="Loading Spinner"
-              data-testid="loader"
+              aria-label='Loading Spinner'
+              data-testid='loader'
             />
           </span>
-        ))}
+        ))} */}
 
       {showPopup ? (
         <AuthPopup togglePopup={togglePopup} />
@@ -101,13 +99,13 @@ function App() {
 
       {/* body */}
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path='/' element={<Home />} />
         <Route
-          path="/product/:id"
+          path='/product/:id'
           element={<Detail />}
         />
         <Route
-          path="/categories/:id"
+          path='/categories/:id'
           element={<Category />}
         />
       </Routes>

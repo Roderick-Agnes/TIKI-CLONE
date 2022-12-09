@@ -104,15 +104,15 @@ const ProductSuggest = () => {
   };
 
   return (
-    <section className="flex flex-col justify-center items-center w-full">
-      <div className="sticky top-0 bg-[#f5f5fa]  w-full laptop:max-w-[74rem]">
-        <div className="flex flex-col justify-center items-center w-full m-0 p-[0.5rem] bg-white rounded">
-          <span className="w-full text-left text-[20px] leading-7 text-[#242424]">
+    <section className='flex flex-col justify-center items-center w-full'>
+      <div className='sticky top-0 bg-[#f5f5fa]  w-full laptop:max-w-[74rem]'>
+        <div className='flex flex-col justify-center items-center w-full m-0 p-4 bg-white rounded'>
+          <span className='w-full text-left text-[20px] leading-7 text-[#242424]'>
             Gợi Ý Hôm Nay
           </span>
         </div>
 
-        <div className="w-full ">
+        <div className='w-full '>
           <div
             className={`grid justify-center items-center w-full grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-[0.5rem] py-[0.5rem]`}
           >
@@ -142,13 +142,13 @@ const ProductSuggest = () => {
         </div>
       </div>
       {dataCollection.length > 0 && (
-        <div className="w-full laptop:max-w-[73.75rem]">
+        <div className='w-full laptop:max-w-[73.75rem]'>
           <Products products={dataCollection} />
           {
             // SHOW LOAD MORE BUTTON IF QUANTITY OF COLLECTION TAB HAS BEEN CHOSE NO MAXIMUM
             !collections[itemIsActived]
               ?._maxQuantity && (
-              <div className="flex justify-center w-full">
+              <div className='flex justify-center w-full'>
                 <div
                   className={
                     !loading

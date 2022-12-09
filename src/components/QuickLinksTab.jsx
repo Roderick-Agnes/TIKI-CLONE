@@ -5,7 +5,7 @@ const QuickLinksTab = (props) => {
   return (
     <>
       <div
-        className="flex flex-col items-center h-full p-[5px] cursor-pointer"
+        className='flex flex-col items-center p-[5px] cursor-pointer'
         onClick={() => {
           navigate(`/categories/${categoryId}`);
         }}
@@ -13,9 +13,9 @@ const QuickLinksTab = (props) => {
         <img
           src={image_url}
           alt={title}
-          className="w-[3rem] h-[3rem] rounded"
+          className='w-[3rem] h-[3rem] rounded'
         />
-        <span className="text-[13px] text-[rgb(36,36,36)] font-thin mt-4 w-[110px] text-center min-h-[39px]">
+        <span className='text-[13px] text-[rgb(36,36,36)] font-thin mt-4 w-[110px] text-center min-h-[39px]'>
           {title}
         </span>
       </div>
