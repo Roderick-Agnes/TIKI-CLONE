@@ -24,6 +24,7 @@ import Promotion from "./templates/Promotion";
 import Home from "./pages/Home";
 import Detail from "./pages/Detail";
 import Category from "./pages/Category";
+import Cart from "./pages/Cart";
 
 const override = {
   position: "fixed",
@@ -107,6 +108,10 @@ function App() {
         <Route
           path='/categories/:id'
           element={<Category />}
+        />
+        <Route
+          path='/your-cart/'
+          element={<Cart />}
         />
       </Routes>
       <Footer />

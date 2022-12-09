@@ -9,7 +9,7 @@ const onrenderApi =
   "https://agnes-shop-api.onrender.com/api";
 
 let axiosClient = axios.create({
-  baseURL: onrenderApi,
+  baseURL: localApi,
   headers: {
     "Content-Type": "application/json",
     "Access-Control-Allow-Origin": "*",

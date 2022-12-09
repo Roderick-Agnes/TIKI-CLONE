@@ -36,13 +36,13 @@ const Breadcrumb = ({ name, category }) => {
                     </Link>
                   ) : (
                     <>
-                      <Link className=' text-[#808089] text-[14px] laptop:hidden'>
+                      <Link className=' text-[#525253] text-[14px] laptop:hidden'>
                         {sliceTitleShort(
                           item?.name,
                           15,
                         )}
                       </Link>
-                      <Link className=' text-[#808089] text-[14px] hidden laptop:block'>
+                      <Link className=' text-[#292929] text-[14px] hidden laptop:block'>
                         {item?.name}
                       </Link>
                     </>
@@ -50,7 +50,7 @@ const Breadcrumb = ({ name, category }) => {
 
                   {idx <
                     breadcrumb.length - 1 && (
-                    <MdArrowForwardIos className='text-[#808089] text-[14px]' />
+                    <MdArrowForwardIos className='text-[#292929] text-[14px]' />
                   )}
                 </li>
               )

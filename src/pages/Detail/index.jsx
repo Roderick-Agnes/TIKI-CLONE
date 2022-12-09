@@ -23,7 +23,6 @@ import {
   offLoading,
 } from "../../redux/custom/loader";
 import { htmlFrom } from "../../utils/validateHtmlString";
-import "./index.css";
 
 const Detail = () => {
   const [indexActive, setIndexActive] =
@@ -71,8 +70,8 @@ const Detail = () => {
 
   return (
     <>
-      <div className="bg-[#F5F5FA] w-full flex flex-col relative z-[9] laptop:items-center laptop:justify-center">
-        <div className="w-full laptop:max-w-[73.75rem] laptop:bg-[#f5f5fa] pb-[4rem] tablet:pb-0">
+      <div className='bg-[#F5F5FA] w-full flex flex-col relative z-[9] laptop:items-center laptop:justify-center'>
+        <div className='w-full laptop:max-w-[73.75rem] laptop:bg-[#f5f5fa] pb-[4rem] tablet:pb-0'>
           {productData && (
             <Breadcrumb
               name={productData?.title}
@@ -81,19 +80,19 @@ const Detail = () => {
           )}
 
           {/* product overview */}
-          <div className="tablet:flex tablet:flex-row">
+          <div className='tablet:flex tablet:flex-row'>
             {/* Left section - Product silder images */}
-            <div className="w-full p-4 bg-[#fff] rounded-l-md laptop:w-[40%]">
+            <div className='w-full p-4 bg-[#fff] rounded-l-md laptop:w-[40%]'>
               <img
                 src={
                   productData?.thumbnails[
                     indexActive
                   ]
                 }
-                className="object-cover w-full laptop:w-[444px] laptop:h-[444px]"
+                className='object-cover w-full laptop:w-[444px] laptop:h-[444px]'
                 alt={productData?.title}
               />
-              <div className="flex flex-row justify-center space-x-3 pt-2 x-mobile:flex-wrap x-mobile:gap-3">
+              <div className='flex flex-row justify-center space-x-3 pt-2 x-mobile:flex-wrap x-mobile:gap-3'>
                 {productData?.thumbnails.map(
                   (thumbnail, idx) => {
                     return (
@@ -123,32 +122,32 @@ const Detail = () => {
             </div>
 
             {/* Right section - Product infomation */}
-            <div className="laptop:w-[60%] p-4 bg-[#fff] rounded-r-md">
+            <div className='laptop:w-[60%] p-4 bg-[#fff] rounded-r-md'>
               {/* Brand name of product */}
-              <span className="text-[13px] text-main">
+              <span className='text-[13px] text-main'>
                 Thương hiệu:{" "}
                 <span
                   key={`brand-name`}
-                  className="text-blue"
+                  className='text-blue'
                 >
                   {productData?.brand_name}
                 </span>
               </span>
               {/* Product name */}
-              <h1 className="text-[#504d4d] text-2xl font-light break-words py-2">
+              <h1 className='text-[#504d4d] text-2xl font-light break-words py-2'>
                 {productData?.title}
               </h1>
               {/* Avg rating */}
-              <div className="text-sm text-[#787878] font-light flex items-center space-x-2 pb-2">
+              <div className='text-sm text-[#787878] font-light flex items-center space-x-2 pb-2'>
                 <Rating
-                  className="space-x-1 text-base leading-4 text-[#fdd940]"
+                  className='space-x-1 text-base leading-4 text-[#fdd940]'
                   placeholderRating={
                     productData?.rating_average
                   }
                   placeholderSymbol={
-                    <BsStarFill className="" />
+                    <BsStarFill className='' />
                   }
-                  readonly="true"
+                  readonly='true'
                   emptySymbol={<BsStar />}
                   fullSymbol={<BsStarHalf />}
                   fractions={2}
@@ -172,8 +171,8 @@ const Detail = () => {
                 )}
               </div>
               {/* Prices infomation of product */}
-              <div className=" bg-[#fafafa] rounded p-4">
-                <div className="flex space-x-2 pb-2">
+              <div className=' bg-[#fafafa] rounded p-4'>
+                <div className='flex space-x-2 pb-2'>
                   <div
                     className={`${
                       productData?.discountRate >
@@ -196,42 +195,42 @@ const Detail = () => {
                         : "flex "
                     } flex-row items-end text-sm space-x-2 font-semibold `}
                   >
-                    <span className="line-through text-[#808089] font-medium">
+                    <span className='line-through text-[#808089] font-medium'>
                       {formatPrice(
                         parseInt(
                           productData?.rootPrice,
                         ),
                       )}
                     </span>
-                    <span className="text-red">
+                    <span className='text-red'>
                       {-productData?.discountRate}
                       %
                     </span>
                   </div>
                 </div>
-                <div className="flex flex-row space-x-2">
-                  <div className="flex justify-center items-center gap-1 py-1 px-2 bg-[#f2f0fe] text-sm font-semibold text-[#7263f3] border-[#402de1] border-[0.3px] border-dashed rounded">
+                <div className='flex flex-row space-x-2'>
+                  <div className='flex justify-center items-center gap-1 py-1 px-2 bg-[#f2f0fe] text-sm font-semibold text-[#7263f3] border-[#402de1] border-[0.3px] border-dashed rounded'>
                     <img
-                      src="https://frontend.tikicdn.com/_desktop-next/static/img/fire_icon.svg"
-                      alt=""
-                      className=""
+                      src='https://frontend.tikicdn.com/_desktop-next/static/img/fire_icon.svg'
+                      alt=''
+                      className=''
                     />
                     May mắn giảm thêm{" "}
                     {formatPrice(15000)}
                   </div>
-                  <div className="flex items-center">
+                  <div className='flex items-center'>
                     <img
                       src={NewIcon}
-                      alt="new-icon"
-                      className="max-w-[42px]"
+                      alt='new-icon'
+                      className='max-w-[42px]'
                     />
                   </div>
                 </div>
               </div>
               {/* Quantity product handler */}
-              <div className="text-[15px] py-4">
+              <div className='text-[15px] py-4'>
                 <div>Số lượng</div>
-                <div className="flex py-2">
+                <div className='flex py-2'>
                   <div
                     className={`cursor-pointer border-solid border-[0.7px] border-[#ececec] rounded-l w-8 h-8 flex justify-center items-center`}
                     onClick={handleDescreasing}
@@ -244,25 +243,25 @@ const Detail = () => {
                       }`}
                     />
                   </div>
-                  <div className="border-solid border-[0.7px] border-[#ececec] w-10 h-8 flex justify-center items-center">
+                  <div className='border-solid border-[0.7px] border-[#ececec] w-10 h-8 flex justify-center items-center'>
                     <input
-                      className=" w-6 h-6 outline-none border-none text-center text-lg"
+                      className=' w-6 h-6 outline-none border-none text-center text-lg'
                       type={"text"}
                       value={quantityBuy}
                       readOnly
                     />
                   </div>
                   <div
-                    className="cursor-pointer border-solid border-[0.7px] border-[#ececec] rounded-r w-8 h-8 flex justify-center items-center"
+                    className='cursor-pointer border-solid border-[0.7px] border-[#ececec] rounded-r w-8 h-8 flex justify-center items-center'
                     onClick={handleIncreasing}
                   >
-                    <BsPlus className=" w-6 h-6" />
+                    <BsPlus className=' w-6 h-6' />
                   </div>
                 </div>
               </div>
               {/* Add to cart button */}
-              <div className="laptop:max-w-[250px]">
-                <button className="w-full py-4 bg-red rounded outline-none border-none text-white text-[15px] font-semibold cursor-pointer shadow-md justify-center items-center hover:opacity-80">
+              <div className='laptop:max-w-[250px]'>
+                <button className='w-full py-4 bg-red rounded outline-none border-none text-white text-[15px] font-semibold cursor-pointer shadow-md justify-center items-center hover:opacity-80'>
                   Thêm vào giỏ hàng
                 </button>
               </div>
@@ -270,12 +269,12 @@ const Detail = () => {
           </div>
 
           {/* product infomation */}
-          <div className="bg-white px-4 py-4 my-4">
-            <div className=" text-[20px] text-[#333333]">
+          <div className='bg-white px-4 py-4 my-4'>
+            <div className=' text-[20px] text-[#333333]'>
               Thông tin sản phẩm
             </div>
-            <div className="pt-2 product__infomation">
-              <table className="">
+            <div className='pt-2 product__infomation'>
+              <table className=''>
                 <tbody>
                   {productData?.information &&
                     productData?.information.map(
@@ -283,9 +282,9 @@ const Detail = () => {
                         return (
                           <tr
                             key={`row-${idx}`}
-                            className="text-[13px]"
+                            className='text-[13px]'
                           >
-                            <td className="w-[220px] text-[#2b2a2a]  font-semibold py-[10px] px-[15px] bg-[#efefef]">
+                            <td className='w-[220px] text-[#2b2a2a]  font-semibold py-[10px] px-[15px] bg-[#efefef]'>
                               {info.name}
                             </td>
                             <td
@@ -310,12 +309,12 @@ const Detail = () => {
           </div>
 
           {/* product description */}
-          <div className="bg-white px-4 py-4 my-4 x-mobile:mb-0 mobile:mb-0">
-            <div className=" text-[20px] text-[#333333]">
+          <div className='bg-white px-4 py-4 my-4 x-mobile:mb-0 mobile:mb-0'>
+            <div className=' text-[20px] text-[#333333]'>
               Mô tả sản phẩm
             </div>
             <div
-              className="pt-2 product__description"
+              className='pt-2 product__description'
               dangerouslySetInnerHTML={{
                 __html: productData?.description,
               }}
