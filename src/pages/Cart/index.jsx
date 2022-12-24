@@ -9,7 +9,7 @@ import { removeAllProduct } from "../../redux/custom/cartHandler";
 
 
 const Cart = () => {
-  const [checker, setChecker] = useState(false)
+  const [allChecked, setAllChecked] = useState(false)
 
   const cart = useSelector(
     (state) => state?.cart,
@@ -19,6 +19,9 @@ const Cart = () => {
     const handleRemoveAll = () => {
       removeAllProduct(ditpatch)
     }
+  const handleChangeStateOfProducts = () => {
+    setAllChecked(pre => !pre)
+  }
 
   return (
     <div className='bg-[#F5F5FA] w-full flex flex-col relative z-[9] laptop:items-center laptop:justify-center'>
@@ -41,9 +44,7 @@ const Cart = () => {
                 <input
                   type='checkbox'
                   className='w-[18px] h-[18px]'
-                  onChange={() => {
-                    setChecker(pre => !pre)
-                  }}
+                  onChange={handleChangeStateOfProducts}
                 />
                 <span className='text-sm'>
                   Tất cả ({cart.size} sản phẩm)
@@ -66,7 +67,7 @@ const Cart = () => {
             {cart.products.map((product) => (
                 <CartItem
                   product={product}
-                  checker={checker}
+                  allChecked={allChecked}
                   key={product?._id}
                 />
               ))}

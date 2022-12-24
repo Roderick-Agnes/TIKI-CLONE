@@ -9,10 +9,10 @@ import NewIcon from "../../../assets/icon/new-icon.gif";
 import { removeProductById, updateQuantity } from "../../../redux/custom/cartHandler";
 import { formatPrice } from "../../../utils/formatPrice";
 
-const CartItem = ({ product, checker }) => {
+const CartItem = ({ product, allChecked }) => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const [checked, setChecked] = useState(checker)
+  const [checked, setItemChecked] = useState(allChecked)
 
   const handleIncreasing = () => {
     const info = {id: product.id, quantity: product.quantity + 1}
@@ -31,12 +31,15 @@ const CartItem = ({ product, checker }) => {
   }
 
   useEffect(()=>{
-    setChecked(checker)
-  }, [checker])
+    setItemChecked(allChecked)
+  }, [allChecked])
   
-  useEffect(()=>{
-    setChecked(checked)
+  useEffect(() => {
+    console.log(product)
+    setItemChecked(checked)
+
   }, [checked])
+
 
   return (
     <div className='grid grid-cols-[398px_170px_130px_130px_30px] py-8 px-5 bg-white rounded my-1'>
@@ -46,7 +49,7 @@ const CartItem = ({ product, checker }) => {
           className='min-w-[18px] min-h-[18px] mr-2'
           checked={checked}
           onClick={() => {
-            setChecked(pre => !pre)
+            setItemChecked(pre => !pre)
           }}
           readOnly
         />
