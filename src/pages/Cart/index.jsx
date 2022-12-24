@@ -16,11 +16,15 @@ const Cart = () => {
   );
   const ditpatch = useDispatch()
 
-    const handleRemoveAll = () => {
-      removeAllProduct(ditpatch)
-    }
+  const handleRemoveAll = () => {
+    removeAllProduct(ditpatch)
+  }
+  
   const handleChangeStateOfProducts = () => {
     setAllChecked(pre => !pre)
+
+    // handle update all state of products in cart
+
   }
 
   return (

@@ -51,6 +51,18 @@ const cartSlice = createSlice({
       )
     },
 
+    updateStateOfItem: (state, action) => {
+      const prod = action.payload;
+      state.products = state.products.map((product) => product.id === prod.id ? {...product, state: prod.state} : product)
+    },
+
+    updateAllState: (state, action) => {
+      const states = action.payload;
+      state.products = state.products.map((product) => 
+        ({...product, state: states})
+      );
+    },
+
     removeById: (state, action) => {
       state.products = state.products.filter(
         (product) =>
@@ -101,6 +113,7 @@ export const {
   addToCart,
   updateCart,
   updateQuantityById,
+  updateStateOfItem,
   removeById,
   removeAll,
   getTotal,

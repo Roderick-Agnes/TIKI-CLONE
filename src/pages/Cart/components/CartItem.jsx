@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import NewIcon from "../../../assets/icon/new-icon.gif";
-import { removeProductById, updateQuantity } from "../../../redux/custom/cartHandler";
+import { removeProductById, updateQuantity, updateStateOfProducts } from "../../../redux/custom/cartHandler";
 import { formatPrice } from "../../../utils/formatPrice";
 
 const CartItem = ({ product, allChecked }) => {
@@ -30,14 +30,17 @@ const CartItem = ({ product, allChecked }) => {
     removeProductById(dispatch, id)
   }
 
+  const handleUpdateStateOfProduct = (product) => {
+    updateStateOfProducts(dispatch, product)
+  }
+
   useEffect(()=>{
     setItemChecked(allChecked)
   }, [allChecked])
   
   useEffect(() => {
-    console.log(product)
     setItemChecked(checked)
-
+    handleUpdateStateOfProduct({id:product.id, state: checked})
   }, [checked])
 
 
