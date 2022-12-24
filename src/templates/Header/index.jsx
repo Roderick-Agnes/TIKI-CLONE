@@ -50,24 +50,6 @@ const style = {
   width: "100%",
   bgcolor: "background.paper",
 };
-const settings = {
-  dots: false,
-  infinite: false,
-  speed: 500,
-  slidesToShow: 4,
-  slidesToScroll: 4,
-  initialSlide: 0,
-  arrows: false,
-  responsive: [
-    {
-      breakpoint: 480,
-      settings: {
-        slidesToShow: 3,
-        slidesToScroll: 3,
-      },
-    },
-  ],
-};
 
 const API_CATEGORY_URL =
   "https://api.tiki.vn/shopping/v2/widgets/home-category-tab-bar?trackity_id=0133075b-db6b-f905-4dbf-c62d0902c027";
@@ -80,6 +62,10 @@ const Header = (props) => {
   const userInfo = useSelector(
     (state) => state?.user || null,
   );
+  const cart = useSelector(
+    (state) => state?.cart,
+  );
+
   const accessToken = userInfo?.info?.accessToken;
 
   const navigation = useNavigate();
@@ -88,21 +74,6 @@ const Header = (props) => {
   const toggleShowOptions = () => {
     setShowOptions(!showOptions);
   };
-
-  useEffect(() => {
-    (async () => {
-      try {
-        //set category data to state
-        axios
-          .get(API_CATEGORY_URL)
-          .then((res) => {
-            setCategory(res.data.data);
-          });
-      } catch (err) {
-        console.log(err);
-      }
-    })();
-  }, []);
 
   const handleLogout = async () => {
     const interceptor =
@@ -125,6 +96,21 @@ const Header = (props) => {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    (async () => {
+      try {
+        //set category data to state
+        axios
+          .get(API_CATEGORY_URL)
+          .then((res) => {
+            setCategory(res.data.data);
+          });
+      } catch (err) {
+        console.log(err);
+      }
+    })();
+  }, []);
 
   return (
     <header className='bg-blue w-full py-[2rem] px-[0.7rem] top-0 sticky z-10 laptop:py-0 laptop:px-0 laptop:flex laptop:flex-col laptop:items-center laptop:relative '>
@@ -174,7 +160,8 @@ const Header = (props) => {
               >
                 <IconButton aria-label='cart'>
                   <StyledBadge
-                    badgeContent={1}
+                    badgeContent={cart.size || 0}
+                    showZero
                     // color="secondary"
                     className=' text-white'
                   >
@@ -327,7 +314,10 @@ const Header = (props) => {
                 >
                   <ThemeProvider theme={theme}>
                     <Badge
-                      badgeContent={1}
+                      badgeContent={
+                        cart.size || 0
+                      }
+                      showZero
                       color='yellow'
                       className='mt-[5px] text-white h-1/2'
                     >

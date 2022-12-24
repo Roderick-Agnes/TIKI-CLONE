@@ -82,7 +82,9 @@ export const loginAction = async (
 
     // SHOW TOASTIFY
     errorToast({
-      title: error.response.data.message || "Username or password invalid!",
+      title:
+        error.response.data.message ||
+        "Username or password invalid!",
     });
 
     console.log("login error: ", error);

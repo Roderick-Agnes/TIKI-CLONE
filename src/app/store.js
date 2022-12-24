@@ -5,7 +5,8 @@ import {
 import {
   userReducer,
   loaderReducer,
-} from "../redux/index";
+  cartReducer,
+} from "../redux/global";
 import {
   persistStore,
   persistReducer,
@@ -22,13 +23,14 @@ const persistConfig = {
   key: "root",
   version: 1,
   storage,
-  whitelist: ["user"],
+  whitelist: ["user", "cart"],
   blacklist: ["loader"],
 };
 
 const rootReducer = combineReducers({
   user: userReducer,
   loader: loaderReducer,
+  cart: cartReducer,
 });
 const persistedReducer = persistReducer(
   persistConfig,

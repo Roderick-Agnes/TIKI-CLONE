@@ -1,15 +1,38 @@
-import React from "react";
+import {useState} from "react";
 import Breadcrumb from "../../components/Breadcrumb";
 import { RiDeleteBinLine } from "react-icons/ri";
 import CartItem from "./components/CartItem";
+import CartEmpty from "./components/CartEmpty";
+import { useDispatch, useSelector } from "react-redux";
+import { removeAllProduct } from "../../redux/custom/cartHandler";
+
+
 
 const Cart = () => {
+  const [checker, setChecker] = useState(false)
+
+  const cart = useSelector(
+    (state) => state?.cart,
+  );
+  const ditpatch = useDispatch()
+
+    const handleRemoveAll = () => {
+      removeAllProduct(ditpatch)
+    }
+
   return (
     <div className='bg-[#F5F5FA] w-full flex flex-col relative z-[9] laptop:items-center laptop:justify-center'>
       <div className='w-full laptop:max-w-[73.75rem] laptop:bg-[#f5f5fa] pb-[4rem] tablet:pb-0'>
         {/* Breadcrumb */}
         <Breadcrumb name={"Giỏ hàng của bạn"} />
-        <div className='flex flex-row justify-between pb-5'>
+        {/* Cart Empty */}
+        {cart.size === 0 && <CartEmpty />}
+
+        <div
+          className={`flex flex-row justify-between pb-5 ${
+            cart.size === 0 && "hidden"
+          }`}
+        >
           {/* Left side  */}
           <div className='flex flex-col'>
             {/* Header */}
@@ -18,9 +41,12 @@ const Cart = () => {
                 <input
                   type='checkbox'
                   className='w-[18px] h-[18px]'
+                  onChange={() => {
+                    setChecker(pre => !pre)
+                  }}
                 />
                 <span className='text-sm'>
-                  Tất cả (1 sản phẩm)
+                  Tất cả ({cart.size} sản phẩm)
                 </span>
               </div>
               <span className='text-[13px]'>
@@ -33,13 +59,17 @@ const Cart = () => {
                 Thành tiền
               </span>
               <div className='flex justify-end items-center'>
-                <RiDeleteBinLine className='w-[18px] h-[18px] cursor-pointer right-0 text-[#9e9d9d]' />
+                <RiDeleteBinLine className='w-[18px] h-[18px] cursor-pointer right-0 text-[#9e9d9d]' onClick={handleRemoveAll}/>
               </div>
             </div>
             {/* Products list  */}
-            <CartItem />
-            <CartItem />
-            <CartItem />
+            {cart.products.map((product) => (
+                <CartItem
+                  product={product}
+                  checker={checker}
+                  key={product?._id}
+                />
+              ))}
           </div>
           {/* Right side  */}
           <div className='bg-[#fff] rounded ml-3  w-full h-fit relative'>

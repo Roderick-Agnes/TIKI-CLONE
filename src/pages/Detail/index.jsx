@@ -22,13 +22,17 @@ import {
   onLoading,
   offLoading,
 } from "../../redux/custom/loader";
+import { addProductToCart } from "../../redux/custom/cartHandler";
 import { htmlFrom } from "../../utils/validateHtmlString";
+import "../Detail/index.css";
 
 const Detail = () => {
   const [indexActive, setIndexActive] =
     useState(0);
   const [productData, setProductData] =
     useState();
+  const [quantityBuy, setQuantityBuy] =
+    useState(1);
 
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -52,9 +56,6 @@ const Detail = () => {
     fetchProductData();
   }, []);
 
-  const [quantityBuy, setQuantityBuy] =
-    useState(1);
-
   const handleIncreasing = () => {
     setQuantityBuy(quantityBuy + 1);
   };
@@ -66,6 +67,21 @@ const Detail = () => {
 
   const handleShowImage = (idx) => {
     setIndexActive(idx);
+  };
+
+  const handleAddToCart = async () => {
+    const product = {
+      ...productData,
+      state: false,
+      quantity: quantityBuy,
+      price:
+        productData.salePrice ||
+        productData.rootPrice,
+      discount: 0,
+    };
+    console.log("quantityBuy: ", quantityBuy);
+    // ADD PRODUCT TO CART
+    await addProductToCart(dispatch, product);
   };
 
   return (
@@ -261,7 +277,10 @@ const Detail = () => {
               </div>
               {/* Add to cart button */}
               <div className='laptop:max-w-[250px]'>
-                <button className='w-full py-4 bg-red rounded outline-none border-none text-white text-[15px] font-semibold cursor-pointer shadow-md justify-center items-center hover:opacity-80'>
+                <button
+                  onClick={handleAddToCart}
+                  className='w-full py-4 bg-red rounded outline-none border-none text-white text-[15px] font-semibold cursor-pointer shadow-md justify-center items-center hover:opacity-80'
+                >
                   Thêm vào giỏ hàng
                 </button>
               </div>

@@ -25,7 +25,9 @@ const userSlice = createSlice({
       state.info = null;
       state.isLoading = false;
       state.error.status = true;
-      state.error.message = action.payload?.message || "Failed to register";
+      state.error.message =
+        action.payload?.message ||
+        "Failed to register";
     },
     loginPending: (state, action) => {
       state.isLoading = true;
@@ -47,9 +49,7 @@ const userSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(REHYDRATE, (state) => {
-      
-    });
+    builder.addCase(REHYDRATE, (state) => {});
   },
 });
 const { actions, reducer } = userSlice;

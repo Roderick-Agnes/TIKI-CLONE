@@ -50,7 +50,7 @@ const Breadcrumb = ({ name, category }) => {
 
                   {idx <
                     breadcrumb.length - 1 && (
-                    <MdArrowForwardIos className='text-[#292929] text-[14px]' />
+                    <MdArrowForwardIos className='text-[#808089] text-[14px]' />
                   )}
                 </li>
               )
