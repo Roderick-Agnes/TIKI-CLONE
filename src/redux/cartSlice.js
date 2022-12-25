@@ -8,6 +8,10 @@ const cartSlice = createSlice({
   initialState: {
     products: [], //  {id, quantity, price, discount, state}
     size: 0,
+    tmpTotal: 0,
+    discount: 0,
+    total: 0,
+    quantityBuy:0
   },
   reducers: {
     addToCart: (state, action) => {
@@ -54,13 +58,16 @@ const cartSlice = createSlice({
     updateStateOfItem: (state, action) => {
       const prod = action.payload;
       state.products = state.products.map((product) => product.id === prod.id ? {...product, state: prod.state} : product)
+      
     },
 
     updateAllState: (state, action) => {
       const states = action.payload;
+      console.log(states)
       state.products = state.products.map((product) => 
         ({...product, state: states})
       );
+      
     },
 
     removeById: (state, action) => {
@@ -77,31 +84,24 @@ const cartSlice = createSlice({
     },
 
     getTotal: (state, action) => {
-      const tmpTotal = state.products.reduce(
-        (pre, cur) =>
-          cur.state
-            ? pre + cur.price * cur.quantity
-            : 0,
-        0,
+ 
+      state.tmpTotal = state.products.reduce(
+        (pre, cur) => cur.state ? pre + cur.price * cur.quantity : pre, 0
       );
-      const discount = state.products.reduce(
+
+      state.discount = state.products.reduce(
         (pre, cur) =>
           cur.state ? pre + cur.discount : 0,
         0,
       );
-      const total = tmpTotal - discount;
 
-      const quantityBuy = state.products.reduce(
+      state.total = state.tmpTotal - state.discount;
+
+      state.quantityBuy = state.products.reduce(
         (pre, cur) => (cur.state ? pre + 1 : 0),
         0,
       );
 
-      return {
-        tmpTotal,
-        discount,
-        total,
-        quantityBuy,
-      };
     },
   },
  
@@ -114,6 +114,7 @@ export const {
   updateCart,
   updateQuantityById,
   updateStateOfItem,
+  updateAllState,
   removeById,
   removeAll,
   getTotal,

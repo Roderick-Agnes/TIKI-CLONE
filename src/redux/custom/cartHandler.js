@@ -5,7 +5,8 @@ import {
   removeAll,
   getTotal,
   updateQuantityById,
-  updateStateOfItem
+  updateStateOfItem,
+  updateAllState
 
 } from "../cartSlice";
 
@@ -40,3 +41,15 @@ export const updateStateOfProducts = async (
 ) => {
   await dispatch(updateStateOfItem(payload));
 };
+export const updateAllStateOfProducts = async (
+  dispatch,
+  payload
+) => {
+  await dispatch(updateAllState(payload));
+};
+export const getBiller = async (
+  dispatch
+) => {
+  await dispatch(getTotal());
+};
+

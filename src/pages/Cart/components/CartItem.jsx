@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import NewIcon from "../../../assets/icon/new-icon.gif";
-import { removeProductById, updateQuantity, updateStateOfProducts } from "../../../redux/custom/cartHandler";
+import { getBiller, removeProductById, updateQuantity, updateStateOfProducts } from "../../../redux/custom/cartHandler";
 import { formatPrice } from "../../../utils/formatPrice";
 
 const CartItem = ({ product, allChecked }) => {
@@ -17,21 +17,31 @@ const CartItem = ({ product, allChecked }) => {
   const handleIncreasing = () => {
     const info = {id: product.id, quantity: product.quantity + 1}
     updateQuantity(dispatch, info)
+
+    //reset total price
+    getBiller(dispatch)
   };
 
   const handleDescreasing = () => {
     if (product.quantity > 1) {
       const info = {id: product.id, quantity: product.quantity - 1}
       updateQuantity(dispatch, info)
+
+      //reset total price
+      getBiller(dispatch)
     }
   };
 
   const handleRemoveProductById = (id) => {
     removeProductById(dispatch, id)
+
+    //reset total price
+    getBiller(dispatch)
   }
 
-  const handleUpdateStateOfProduct = (product) => {
+  const handleUpdateStateOfProduct =  (product) => {
     updateStateOfProducts(dispatch, product)
+    getBiller(dispatch)
   }
 
   useEffect(()=>{
